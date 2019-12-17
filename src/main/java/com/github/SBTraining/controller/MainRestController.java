@@ -34,4 +34,13 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
+    public void find(long id) {
+        dao.findById(id);
+    }
+    public void delete(long id) {
+        dao.deleteById(id);
+    }
+    public void create(@RequestBody Teapot teapot) {
+        dao.save(teapot);
+    }
 }
