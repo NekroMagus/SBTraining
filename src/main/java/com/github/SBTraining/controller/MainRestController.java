@@ -46,4 +46,14 @@ public class MainRestController {
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
     }
+     @GetMapping("/update")
+    public void update(@RequestParam(name = "id",required = false) String id,@RequestParam(name="method",required = false) String method,@RequestParam(name = "value",required = false) String value) {
+        Optional<Teapot> list = dao.findById(Long.parseLong(id));
+        Teapot teapot = list.get();
+        if(method.equals("color"))teapot.setColor(value);
+        else if(method.equals("Model"))teapot.setModel(value);
+        else if(method.equals("Power"))teapot.setPower(Integer.parseInt(value));
+        else if(method.equals("Type"))teapot.setType(value);
+        else if(method.equals("Volume"))teapot.setVolume(Integer.parseInt(value));
+    } 
 }
