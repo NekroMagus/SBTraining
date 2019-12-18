@@ -34,11 +34,14 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
-    public void find(long id) {
-        dao.findById(id);
+@GetMapping("/find")
+    public Optional<Teapot> find(@RequestParam(name = "id",required = false) String id) {
+        return dao.findById(Long.parseLong(id));
     }
-    public void delete(long id) {
-        dao.deleteById(id);
+    @GetMapping("/delete")
+    public void delete(@RequestParam(name = "id",required = false) String id) {
+
+        dao.deleteById(Long.parseLong(id));
     }
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
