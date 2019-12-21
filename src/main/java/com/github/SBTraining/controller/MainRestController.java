@@ -24,7 +24,7 @@ public class MainRestController {
         return dao.findAll();
     }
 
-    @GetMapping("/add")
+   @PostMapping("/add")
     public void add() {
         Teapot teapot = new Teapot();
         teapot.setColor("Red");
@@ -34,26 +34,28 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
-@GetMapping("/find")
-    public Optional<Teapot> find(@RequestParam(name = "id",required = false) String id) {
-        return dao.findById(Long.parseLong(id));
-    }
-    @GetMapping("/delete")
-    public void delete(@RequestParam(name = "id",required = false) String id) {
-
-        dao.deleteById(Long.parseLong(id));
-    }
-    public void create(@RequestBody Teapot teapot) {
-        dao.save(teapot);
-    }
-     @GetMapping("/update")
-    public void update(@RequestParam(name = "id",required = false) String id,@RequestParam(name="method",required = false) String method,@RequestParam(name = "value",required = false) String value) {
-        Optional<Teapot> list = dao.findById(Long.parseLong(id));
-        Teapot teapot = list.get();
-        if(method.equals("color"))teapot.setColor(value);
+    @PutMapping("/update")
+    public void update(@PathVariable(name="id" , required = false) String id,@PathVariable(name="method",required = false) String method,@PathVariable(name = "value",required = false) String value) {
+        Optional<Teapot> teapotList = dao.findById(Long.parseLong(id));
+        Teapot teapot = teapotList.get();
+        if(method.equals("Color"))teapot.setColor(value);
         else if(method.equals("Model"))teapot.setModel(value);
         else if(method.equals("Power"))teapot.setPower(Integer.parseInt(value));
         else if(method.equals("Type"))teapot.setType(value);
         else if(method.equals("Volume"))teapot.setVolume(Integer.parseInt(value));
-    } 
+        dao.save(teapot);
+    }
+    @GetMapping("/find")
+    public Optional<Teapot> find(@RequestParam(name = "id",required = false) String id) {
+        return dao.findById(Long.parseLong(id));
+    }
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam(name = "id",required = false) String id) {
+
+        dao.deleteById(Long.parseLong(id));
+    }
+    @PostMapping("/create")
+    public void create(@RequestBody Teapot teapot) {
+        dao.save(teapot);
+    }
 }
