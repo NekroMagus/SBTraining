@@ -24,7 +24,7 @@ public class MainRestController {
         return dao.findAll();
     }
 
-   @PostMapping("/add")
+  @PostMapping("/add")
     public void add() {
         Teapot teapot = new Teapot();
         teapot.setColor("Red");
@@ -35,22 +35,19 @@ public class MainRestController {
         dao.save(teapot);
     }
     @PutMapping("/update")
-    public void update(@PathVariable(name="id" , required = false) String id,@PathVariable(name="method",required = false) String method,@PathVariable(name = "value",required = false) String value) {
+    public void update(@PathVariable(name="id" , required = false) String id) {
         Optional<Teapot> teapotList = dao.findById(Long.parseLong(id));
         Teapot teapot = teapotList.get();
-        if(method.equals("Color"))teapot.setColor(value);
-        else if(method.equals("Model"))teapot.setModel(value);
-        else if(method.equals("Power"))teapot.setPower(Integer.parseInt(value));
-        else if(method.equals("Type"))teapot.setType(value);
-        else if(method.equals("Volume"))teapot.setVolume(Integer.parseInt(value));
+        Service service = new Service();
+        service.changeTeapot();
         dao.save(teapot);
     }
     @GetMapping("/find")
-    public Optional<Teapot> find(@RequestParam(name = "id",required = false) String id) {
+    public Optional<Teapot> find(@PathVariable(name = "id",required = false) String id) {
         return dao.findById(Long.parseLong(id));
     }
     @DeleteMapping("/delete")
-    public void delete(@RequestParam(name = "id",required = false) String id) {
+    public void delete(@PathVariable(name = "id",required = false) String id) {
 
         dao.deleteById(Long.parseLong(id));
     }
