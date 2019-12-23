@@ -45,7 +45,7 @@ public class MainRestController {
     }
 
     @GetMapping("/find")
-    public Optional<Teapot> find(@PathVariable(name = "id",required = false) String id) {
+    public Optional<Teapot> find(@PathVariable("id") String id) {
         return dao.findById(Long.parseLong(id));
     }
 
