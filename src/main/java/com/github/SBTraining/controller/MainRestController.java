@@ -34,6 +34,7 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
+
     @PutMapping("/update")
     public void update(@PathVariable(name="id" , required = false) String id) {
         Optional<Teapot> teapotList = dao.findById(Long.parseLong(id));
@@ -42,15 +43,17 @@ public class MainRestController {
         service.changeTeapot();
         dao.save(teapot);
     }
+
     @GetMapping("/find")
     public Optional<Teapot> find(@PathVariable(name = "id",required = false) String id) {
         return dao.findById(Long.parseLong(id));
     }
+
     @DeleteMapping("/delete")
     public void delete(@PathVariable(name = "id",required = false) String id) {
-
         dao.deleteById(Long.parseLong(id));
     }
+
     @PostMapping("/create")
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
