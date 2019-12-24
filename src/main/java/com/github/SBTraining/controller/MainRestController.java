@@ -24,7 +24,7 @@ public class MainRestController {
         return dao.findAll();
     }
 
-  @PostMapping("/add")
+ @PostMapping("/add")
     public void add() {
         Teapot teapot = new Teapot();
         teapot.setColor("Red");
@@ -34,26 +34,22 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
-
     @PutMapping("/update")
-    public void update(@PathVariable(name="id" , required = false) String id) {
-        Optional<Teapot> teapotList = dao.findById(Long.parseLong(id));
-        Teapot teapot = teapotList.get();
+    public void update(@PathVariable(name="id") Long id,@RequestBody Teapot newObject) {
+        Teapot teapot = dao.findById(id).get();
         Service service = new Service();
-        service.changeTeapot();
+        service.changeTeapot(newObject);
         dao.save(teapot);
     }
-
     @GetMapping("/find")
-    public Optional<Teapot> find(@PathVariable("id") String id) {
-        return dao.findById(Long.parseLong(id));
+    public Optional<Teapot> find(@PathVariable(name = "id") Long id) {
+        return dao.findById(id);
     }
-
     @DeleteMapping("/delete")
-    public void delete(@PathVariable(name = "id",required = false) String id) {
-        dao.deleteById(Long.parseLong(id));
-    }
+    public void delete(@PathVariable(name = "id") Long id) {
 
+        dao.deleteById(id);
+    }
     @PostMapping("/create")
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
