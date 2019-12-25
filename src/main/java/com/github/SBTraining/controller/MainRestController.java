@@ -14,6 +14,9 @@ public class MainRestController {
     @Autowired
     private TeapotDao dao;
 
+    @Autowired
+    private Service service;
+
     @GetMapping("/")
     public String helloController() {
         return "Hi";
@@ -34,22 +37,24 @@ public class MainRestController {
         teapot.setVolume(2200);
         dao.save(teapot);
     }
+
     @PutMapping("/update")
-    public void update(@PathVariable(name="id") Long id,@RequestBody Teapot newObject) {
+    public void update(@RequestBody Teapot newTeapot) {
         Teapot teapot = dao.findById(id).get();
-        Service service = new Service();
-        service.changeTeapot(newObject);
+        service.changeTeapot(newTeapot); //Для чего это строка, если в итоге сохраняем другой объект?
         dao.save(teapot);
     }
-    @GetMapping("/find")
-    public Optional<Teapot> find(@PathVariable(name = "id") Long id) {
+
+    @GetMapping("/find/{id}")
+    public Teapot find(@PathVariable("id") Long id) {
         return dao.findById(id);
     }
-    @DeleteMapping("/delete")
-    public void delete(@PathVariable(name = "id") Long id) {
 
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Long id) {
         dao.deleteById(id);
     }
+
     @PostMapping("/create")
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
