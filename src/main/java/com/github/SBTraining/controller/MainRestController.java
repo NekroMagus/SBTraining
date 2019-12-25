@@ -47,7 +47,7 @@ public class MainRestController {
 
     @GetMapping("/find/{id}")
     public Teapot find(@PathVariable("id") Long id) {
-        return dao.findById(id);
+        return dao.findById(id).get();
     }
 
     @DeleteMapping("/delete/{id}")
