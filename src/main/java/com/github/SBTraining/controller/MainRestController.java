@@ -22,7 +22,7 @@ public class MainRestController {
         return "Hi";
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allTeapot")
     public List<Teapot> getAll() {
         return dao.findAll();
     }
