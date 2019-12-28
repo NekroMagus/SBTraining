@@ -22,7 +22,7 @@ public class MainRestController {
         return "Hi";
     }
 
-    @GetMapping("/allTeapot")
+    @GetMapping("/teapot")
     public List<Teapot> getAll() {
         return dao.findAll();
     }
@@ -38,24 +38,24 @@ public class MainRestController {
         dao.save(teapot);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/teapot")
     public void update(@RequestBody Teapot newTeapot) {
         Teapot teapot = dao.findById(id).get();
         service.changeTeapot(newTeapot); //Для чего это строка, если в итоге сохраняем другой объект?
         dao.save(teapot);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/teapot/{id}")
     public Teapot find(@PathVariable("id") Long id) {
         return dao.findById(id).get();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/teapot/{id}")
     public void delete(@PathVariable("id") Long id) {
         dao.deleteById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/teapot")
     public void create(@RequestBody Teapot teapot) {
         dao.save(teapot);
     }
