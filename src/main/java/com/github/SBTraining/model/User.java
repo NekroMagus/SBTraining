@@ -1,19 +1,13 @@
 package com.github.SBTraining.model;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name="User")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
+    private String email;
+    private int balance;
     private String login;
     private String password;
     private String dateOfReg;
@@ -40,5 +34,17 @@ public class User {
     }
     public String getDateOfRed() {
         return dateOfReg;
+    }
+    public void setEmail(String email) {
+        this.email=email;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+    public int getBalance() {
+        return balance;
     }
 }
