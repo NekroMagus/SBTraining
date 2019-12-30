@@ -1,8 +1,10 @@
 package com.github.SBTraining.model;
 import javax.persistence.*;
+
 @Entity
 @Table(name="User")
 public class User {
+
     @Id
     @GeneratedValue
     private long id;
@@ -11,6 +13,7 @@ public class User {
     private String login;
     private String password;
     private String dateOfReg;
+
     public void setId(long id) {
         this.id=id;
     }
