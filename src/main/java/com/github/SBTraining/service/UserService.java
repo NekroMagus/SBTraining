@@ -7,48 +7,32 @@ import org.springframework.stereotype.Service;
 public class UserService {
      public User registration() {
      User user = new User();
-     user.setEmail(getEmailFromPageReg());
-     user.setDateOfReg(getDateOfRegFromPageReg());
-     user.setLogin(getLoginFromPageReg());
-     user.setPassword(getPasswordFromPageReg());
+     user.setEmail(getEmailFromPage());
+     user.setDateOfReg(getDateOfRegFromPage());
+     user.setLogin(getLoginFromPage());
+     user.setPassword(getPasswordFromPage());
      return user;
      }
-     public String getLoginFromPageReg() {
+     public String getLoginFromPage() {
           // получаем логин , который введёт пользователь
           return new String("login");
      }
-     public String getEmailFromPageReg() {
+     public String getEmailFromPage() {
           // получаем email, который введёт пользователь
           return new String("email");
      }
-     public String getPasswordFromPageReg() {
+     public String getPasswordFromPage() {
           // получаем пароль , который введёт пользователь
           return new String("password");
      }
-     public String getDateOfRegFromPageReg() {
+     public String getDateOfRegFromPage() {
           // получаем дату регистрации , который введёт пользователь
           return new String("date");
      }
      public void changeUser(User user) {
-        user.setPassword(getPasswordFromPageUpdate());
-        user.setLogin(getLoginFromPageUpdate());
-        user.setDateOfReg(getDateOfRegFromPageUpdate());
-        user.setEmail(getEmailFromPageUpdate());
-     }
-     public String getLoginFromPageUpdate() {
-          // получаем логин , который введёт пользователь
-          return new String("login");
-     }
-     public String getEmailFromPageUpdate() {
-          // получаем email, который введёт пользователь
-          return new String("email");
-     }
-     public String getPasswordFromPageUpdate() {
-          // получаем пароль , который введёт пользователь
-          return new String("password");
-     }
-     public String getDateOfRegFromPageUpdate() {
-          // получаем дату регистрации , который введёт пользователь
-          return new String("date");
+          user.setPassword(getPasswordFromPage());
+          user.setLogin(getLoginFromPage());
+          user.setDateOfReg(getDateOfRegFromPage());
+          user.setEmail(getEmailFromPage());
      }
 }
