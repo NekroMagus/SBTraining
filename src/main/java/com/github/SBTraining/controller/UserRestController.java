@@ -9,23 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public class UserRestController {
     @Autowired
+
     private UserService userService;
     @Autowired
+
     private UserDao dao;
-    @GetMapping("/create")
+
+    @PostMapping("/create")
     public void create() {
        dao.save(userService.registration());
     }
+    @GetMapping("/find")
     public User find(@PathVariable("id") long id) {
         return dao.findById(id).get();
     }
-    @GetMapping("/update")
-    public void update(@PathVariable("id") long id) {
-        User user = dao.findById(id).get();
+    @PutMapping("/update")
+    public void update(@RequestBody User user) {
         userService.changeUser(user);
         dao.save(user);
     }
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void delete(@PathVariable("id") long id) {
         dao.deleteById(id);
     }
