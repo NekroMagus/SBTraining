@@ -18,29 +18,27 @@ public class TeapotRestController {
     private TeapotService teapotService;
 
     @GetMapping("/teapot")
-    public List<Teapot> getAll() {
+    public List<Teapot> findAllTeapot() {
         return dao.findAll();
     }
 
     @GetMapping("/teapot/{id}")
-    public Teapot find(@PathVariable("id") long id) {
+    public Teapot findByIdTeapot(@PathVariable("id") long id) {
         return dao.findById(id);
     }
 
     @PostMapping("/teapot")
-    public void create(@RequestBody Teapot teapot) {
+    public void createTeapot(@RequestBody Teapot teapot) {
         dao.save(teapot);
     }
 
     @PutMapping("/teapot")
-    public void update(@RequestBody Teapot teapot) {
-        Teapot dbTeapot = dao.findById(teapot.getId());
-        teapotService.updateTeapot(dbTeapot, teapot);
-        dao.save(dbTeapot);
+    public void updateTeapot(@RequestBody Teapot teapot) {
+        teapotService.updateTeapot(teapot);
     }
 
     @DeleteMapping("/teapot/{id}")
-    public void delete(@PathVariable("id") long id) {
+    public void deleteTeapot(@PathVariable("id") long id) {
         dao.deleteById(id);
     }
 
