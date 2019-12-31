@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 public class TeapotRestController {
 
     @Autowired
@@ -20,7 +21,6 @@ public class TeapotRestController {
     public List<Teapot> getAll() {
         return dao.findAll();
     }
-
 
     @GetMapping("/teapot/{id}")
     public Teapot find(@PathVariable("id") long id) {
@@ -38,6 +38,7 @@ public class TeapotRestController {
         teapotService.updateTeapot(dbTeapot, teapot);
         dao.save(dbTeapot);
     }
+
     @DeleteMapping("/teapot/{id}")
     public void delete(@PathVariable("id") long id) {
         dao.deleteById(id);
