@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+     //TODO: need change like TeapotService
      public User registration() {
      User user = new User();
      user.setEmail(getEmailFromPage());

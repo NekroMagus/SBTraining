@@ -15,26 +15,26 @@ public class UserRestController {
     @Autowired
     private UserDao dao;
 
-    //TODO: mapping could be /user
+    //TODO: mapping should be /user
     @PostMapping("/create")
     public void create() {
         dao.save(userService.registration());
     }
 
-    //TODO: mapping could be /user and need add /{id} like in class TeapotRestController
+    //TODO: mapping should be /user and need add /{id} like in class TeapotRestController
     @GetMapping("/find")
     public User find(@PathVariable("id") long id) {
         return dao.findById(id).get();
     }
 
-    //TODO: mapping could be /user
+    //TODO: mapping should be /user
     @PutMapping("/update")
     public void update(@RequestBody User user) {
         userService.changeUser(user);
         dao.save(user);
     }
 
-    //TODO: mapping could be /user
+    //TODO: mapping should be /user
     @DeleteMapping("/delete")
     public void delete(@PathVariable("id") long id) {
         dao.deleteById(id);
