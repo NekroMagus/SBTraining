@@ -15,6 +15,8 @@ public class User {
     private String password;
     private String dateOfReg;
 
+    //TODO: add empty and full constructor
+
     public void setId(long id) {
         this.id = id;
     }
