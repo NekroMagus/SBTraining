@@ -16,16 +16,6 @@ public class TeapotRestController {
 
     @Autowired
     private TeapotService teapotService;
-    @GetMapping("/add")
-    public void add() {
-        Teapot t = new Teapot();
-        t.setType("edadasg");
-        t.setColor("1231231");
-        t.setVolume(12.2);
-        t.setPower(123);
-        t.setModel("sgag");
-        dao.save(t);
-    }
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
         return dao.findAll();
