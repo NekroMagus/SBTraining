@@ -10,4 +10,6 @@ public class HtmlController {
     public String getHtmlPage() {
         return "index";
     }
+    @GetMapping("/htmlGetAll")
+    public String getAll() {return "allTeapots";}
 }
