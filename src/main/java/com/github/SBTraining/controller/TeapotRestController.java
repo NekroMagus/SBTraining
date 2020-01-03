@@ -16,6 +16,7 @@ public class TeapotRestController {
 
     @Autowired
     private TeapotService teapotService;
+
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
         return dao.findAll();
