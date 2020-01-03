@@ -15,24 +15,41 @@ $('#findButton').submit(function (event) {
 });
 $('#create').submit(function (event) {
   event.preventDefault();
-  let type = $('#type').val();
-  let model = $('#model').val();
-  let color = $('#color').val();
-  let volume = $('#volume').val();
-  let power = $('#power').val();
-  $.ajax({
-      url: '/teapot/',
-      type: 'POST',
+  let json =
+   JSON.stringify( {
+        type : $('#type').val(),
+        model : $('#model').val(),
+        color : $('#color').val(),
+        volume : $('#volume').val(),
+        power : $('#power').val()
+    });
+   $.ajax({
+      url: '/teapot',
+      type: "POST",
+       data: json,
       contentType:'application/json',
-      succes: (data) => {
-          let json = {
-              type: type,
-              model: model,
-              color: color,
-              volume: volume,
-              power: power
-           };
-          $('#feedback1').html(json);
+      success: (data) => {
+          alert(data);
       }
   });
 });
+ $('update').submit(function(event) {
+    event.preventDefault();
+    let json = JSON.stringify({
+        id: $('#id').val(),
+        type : $('#typeUpdate').val(),
+        model : $('#modelUpdate').val(),
+        color : $('#colorUpdate').val(),
+        volume : $('#volumeUpdate').val(),
+        power : $('#powerUpdate').val()
+    });
+     $.ajax({
+         url: '/teapot',
+         type: "PUT",
+         data: json,
+         contentType: 'application/json',
+         success: (data) => {
+             alert(data);
+         }
+     });
+ });
