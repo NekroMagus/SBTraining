@@ -33,7 +33,7 @@ $('#create').submit(function (event) {
       }
   });
 });
- $('update').submit(function(event) {
+ $('#update').submit(function(event) {
     event.preventDefault();
     let json = JSON.stringify({
         id: $('#id').val(),
@@ -52,4 +52,15 @@ $('#create').submit(function (event) {
              alert(data);
          }
      });
+ });
+ $('#delete').submit(function (event) {
+  event.preventDefault();
+  let id = $('#idDelete').val();
+  $.ajax({
+      url: '/teapot/' + id,
+      type: "DELETE",
+      success: (data) => {
+          alert(data);
+     }
+  });
  });
