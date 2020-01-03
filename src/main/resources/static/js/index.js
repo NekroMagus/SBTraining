@@ -31,6 +31,9 @@ $('#create').submit(function (event) {
       success: (data) => {
           alert(data);
       }
+      error: (err) => {
+      alert(err);
+      }
   });
 });
  $('#update').submit(function(event) {
@@ -51,6 +54,9 @@ $('#create').submit(function (event) {
          success: (data) => {
              alert(data);
          }
+         error: (err) => {
+         alert(err);
+        }
      });
  });
  $('#delete').submit(function (event) {
@@ -62,9 +68,13 @@ $('#create').submit(function (event) {
       success: (data) => {
           alert(data);
      }
+      error: (err) => {
+       alert(err);
+     }
   });
  });
  $('#getAll').submit(function (event) {
+   event.preventDefault();
    $.ajax({
       url: '/teapot',
       type: "GET",
