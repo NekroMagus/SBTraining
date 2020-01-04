@@ -30,7 +30,7 @@ $('#create').submit(function (event) {
       contentType:'application/json',
       success: (data) => {
           alert(data);
-      }
+      },
       error: (err) => {
       alert(err);
       }
@@ -53,7 +53,7 @@ $('#create').submit(function (event) {
          contentType: 'application/json',
          success: (data) => {
              alert(data);
-         }
+         },
          error: (err) => {
          alert(err);
         }
@@ -67,7 +67,7 @@ $('#create').submit(function (event) {
       type: "DELETE",
       success: (data) => {
           alert(data);
-     }
+     },
       error: (err) => {
        alert(err);
      }

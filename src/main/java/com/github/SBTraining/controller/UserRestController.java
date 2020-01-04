@@ -6,7 +6,7 @@ import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-//TODO: need annotation
+@RestController
 public class UserRestController {
 
     @Autowired
@@ -15,27 +15,22 @@ public class UserRestController {
     @Autowired
     private UserDao dao;
 
-    //TODO: mapping should be /user
-    @PostMapping("/create")
+    @PostMapping("/user")
     public void create() {
         dao.save(userService.registration());
     }
 
-    //TODO: mapping should be /user and need add /{id} like in class TeapotRestController
-    @GetMapping("/find")
+    @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
         return dao.findById(id).get();
     }
 
-    //TODO: mapping should be /user
-    @PutMapping("/update")
+    @PutMapping("/user")
     public void update(@RequestBody User user) {
         userService.changeUser(user);
         dao.save(user);
     }
-
-    //TODO: mapping should be /user
-    @DeleteMapping("/delete")
+    @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
         dao.deleteById(id);
     }

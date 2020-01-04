@@ -15,7 +15,14 @@ public class User {
     private String password;
     private String dateOfReg;
 
-    //TODO: add empty and full constructor
+    public User() {}
+    public User(String email,int balance,String login,String password,String dateOfReg) {
+        this.email=email;
+        this.balance=balance;
+        this.login=login;
+        this.password=password;
+        this.dateOfReg=dateOfReg;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -37,7 +44,7 @@ public class User {
         this.password = password;
     }
 
-    public String getPassword(String password) {
+    public String getPassword() {
         return password;
     }
 
