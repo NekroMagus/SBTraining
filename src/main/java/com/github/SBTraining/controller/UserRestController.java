@@ -27,8 +27,7 @@ public class UserRestController {
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {
-        userService.changeUser(user);
-        dao.save(user);
+        userService.update(user);
     }
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
