@@ -4,5 +4,5 @@ import com.github.SBTraining.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDao extends JpaRepository<User, Long> {
-     public User findById(long id);
+      User findById(long id);
 }
