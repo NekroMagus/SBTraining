@@ -17,7 +17,7 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user){
-        dao.save(userService.update());
+        dao.save(user);
     }
 
     @GetMapping("/user/{id}")
