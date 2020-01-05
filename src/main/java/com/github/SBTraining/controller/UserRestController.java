@@ -22,7 +22,7 @@ public class UserRestController {
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        return dao.findById(id).get();
+        return dao.findById(id);
     }
 
     @PutMapping("/user")
