@@ -16,8 +16,8 @@ public class UserRestController {
     private UserDao dao;
 
     @PostMapping("/user")
-    public void create() {
-        dao.save(userService.registration());
+    public void create(@RequestBody User user){
+        dao.save(userService.update());
     }
 
     @GetMapping("/user/{id}")
