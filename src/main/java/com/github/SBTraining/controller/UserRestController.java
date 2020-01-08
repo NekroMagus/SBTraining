@@ -16,9 +16,10 @@ public class UserRestController {
     private UserDao dao;
 
     @PostMapping("/user")
-    public void create(@RequestBody User user) {
-        dao.save(user);
+    public void create() {
+        dao.save(userService.registration());
     }
+
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
         return dao.findById(id).get();
@@ -26,7 +27,8 @@ public class UserRestController {
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {
-        userService.update(user);
+        userService.changeUser(user);
+        dao.save(user);
     }
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {

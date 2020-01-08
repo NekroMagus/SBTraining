@@ -11,7 +11,7 @@ public class UserService {
      private UserDao dao;
 
      public void update(User user) {
-         User dbUser = dao.findById(user.getId()).get();
+         User dbUser = dao.findById(user.getId());
          dbUser.setPassword(user.getPassword());
          dbUser.setLogin(user.getLogin());
          dbUser.setDateOfReg(user.getDateOfRed());
