@@ -16,19 +16,18 @@ public class UserRestController {
     private UserDao dao;
 
     @PostMapping("/user")
-    public void create() {
-        dao.save(userService.registration());
+    public void create(@RequestBody User user) {
+        dao.save(user);
     }
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        return dao.findById(id).get();
+        return dao.findById(id);
     }
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {
-        userService.changeUser(user);
-        dao.save(user);
+        userService.update(user);
     }
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
