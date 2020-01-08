@@ -19,16 +19,6 @@ public class UserRestController {
     public void create(@RequestBody User user) {
         dao.save(user);
     }
-    @GetMapping("/add")
-    public void add() {
-        User user = new User();
-        user.setBalance(123);
-        user.setEmail("q4y ");
-        user.setDateOfReg("123");
-        user.setLogin("egor");
-        user.setPassword("12345");
-        dao.save(user);
-    }
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
         return dao.findById(id).get();
