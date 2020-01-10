@@ -1,4 +1,4 @@
-package com.github.SBTraining.config;
+package com.github.SBTraining.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
