@@ -28,7 +28,7 @@ public class UserRestController {
     }
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new NotFoundTeapotException("юзер не найден");
+        if(dao.findById(id)==null)new ModelNotFoundException("юзер не найден");
         return dao.findById(id);
     }
 
@@ -39,7 +39,7 @@ public class UserRestController {
     }
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new NotFoundTeapotException("юзер не найден");
+        if(dao.findById(id)==null)new ModelNotFoundException("юзер не найден");
         dao.deleteById(id);
     }
 }
