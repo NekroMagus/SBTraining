@@ -29,7 +29,7 @@ public class TeapotRestController {
 
     @GetMapping("/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new NotFoundTeapotException("чайник не найден");
+        if(dao.findById(id)==null)new ModelNotFoundException("чайник не найден");
         return dao.findById(id);
     }
 
@@ -49,7 +49,7 @@ public class TeapotRestController {
 
     @DeleteMapping("/teapot/{id}")
     public void deleteTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new NotFoundTeapotException("чайник не найден");
+        if(dao.findById(id)==null)new ModelNotFoundException("чайник не найден");
         dao.deleteById(id);
     }
 
