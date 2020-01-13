@@ -1,7 +1,7 @@
 package com.github.SBTraining.exceptions;
 
-public class NotFoundTeapotException extends RuntimeException {
-    public NotFoundTeapotException(String message) {
+public class ModelNotFoundException extends RuntimeException {
+    public ModelNotFoundException(String message) {
         super(message);
     }
 }
