@@ -4,10 +4,10 @@ import com.github.SBTraining.exceptions.EmptyListTeapotsException;
 import com.github.SBTraining.exceptions.FieldNullException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestController
-public class RestControllerAdvice {
+@RestControllerAdvice
+public class ExceptionRestController {
     @ExceptionHandler(value= EmptyListTeapotsException.class)
     public String callELTException() {
      return "пустой список чайников";
