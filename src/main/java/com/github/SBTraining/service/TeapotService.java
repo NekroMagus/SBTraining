@@ -13,8 +13,6 @@ public class TeapotService {
   private TeapotDao dao;
 
   public void updateTeapot(Teapot teapot) {
-    if(teapot.getColor()==null || teapot.getModel()==null || teapot.getPower()==0 || teapot.getType()==null ||
-            teapot.getVolume()==0.0)new FieldNullException("одно из полей равно null");
     Teapot dbTeapot = dao.findById(teapot.getId());
     dbTeapot.setVolume(teapot.getVolume());
     dbTeapot.setType(teapot.getType());
