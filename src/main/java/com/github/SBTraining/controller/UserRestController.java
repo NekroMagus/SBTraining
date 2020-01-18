@@ -29,6 +29,7 @@ public class UserRestController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
+
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
         if(dao.findById(id)==null){throw new ModelNotFoundException("юзер не найден");}
@@ -43,6 +44,7 @@ public class UserRestController {
         user.getPassword()==null){throw new FieldNullException("одно из полей пустое");}
         userService.update(user);
     }
+
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
         if(dao.findById(id)==null){throw new ModelNotFoundException("юзер не найден");}
