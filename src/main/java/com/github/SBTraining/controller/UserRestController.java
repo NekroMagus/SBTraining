@@ -1,7 +1,7 @@
 package com.github.SBTraining.controller;
 
 import com.github.SBTraining.dao.UserDao;
-import com.github.SBTraining.dto.DtoUser;
+
 import com.github.SBTraining.exceptions.FieldNullException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import com.github.SBTraining.model.User;
@@ -9,10 +9,6 @@ import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import static org.hibernate.annotations.common.util.StringHelper.add;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController

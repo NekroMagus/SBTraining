@@ -3,7 +3,7 @@ package com.github.SBTraining.controller;
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.exceptions.EmptyListTeapotsException;
 import com.github.SBTraining.exceptions.FieldNullException;
-import com.github.SBTraining.exceptions.NotFoundTeapotException;
+import com.github.SBTraining.exceptions.ModelNotFoundException;
 import com.github.SBTraining.model.Teapot;
 import com.github.SBTraining.service.TeapotService;
 import org.springframework.beans.factory.annotation.Autowired;

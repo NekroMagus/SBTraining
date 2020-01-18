@@ -1,7 +1,6 @@
 package com.github.SBTraining.service;
 
 import com.github.SBTraining.dao.UserDao;
-import com.github.SBTraining.exceptions.FieldNullException;
 import com.github.SBTraining.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
