@@ -12,7 +12,6 @@ public class UserService {
      private UserDao dao;
 
      public void update(User user) {
-         if(user.getDateOfRed()==null || user.getEmail()==null || user.getLogin()==null || user.getPassword()==null)new FieldNullException("одно из полей пустое");
          User dbUser = dao.findById(user.getId());
          dbUser.setPassword(user.getPassword());
          dbUser.setLogin(user.getLogin());
