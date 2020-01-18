@@ -27,28 +27,28 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
-        if(user.getDateOfRed()==null || user.getEmail()==null || user.getLogin()==null || user.getPassword()==null)new FieldNullException("одно из полей пустое");
+        if(user.getDateOfRed()==null || user.getEmail()==null ||
+        user.getLogin()==null || user.getPassword()==null)throw new FieldNullException("одно из полей пустое");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
     @GetMapping("/user/{id}")
-    public DtoUser find(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new ModelNotFoundException("юзер не найден");
-        DtoUser dtoUser = new DtoUser(dao.findById(id));
-        add(linkTo(methodOn(UserRestController.class).?.withSelfRel());
-        return dtoUser;
+    public User find(@PathVariable("id") long id) {
+        if(dao.findById(id)==null)throw new ModelNotFoundException("юзер не найден");
+        return dao.findById(id);
     }
 
 
 
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
-        if(user.getDateOfRed()==null || user.getEmail()==null || user.getLogin()==null || user.getPassword()==null)new FieldNullException("одно из полей пустое");
+        if(user.getDateOfRed()==null || user.getEmail()==null || user.getLogin()==null || 
+        user.getPassword()==null)throw new FieldNullException("одно из полей пустое");
         userService.update(user);
     }
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)new ModelNotFoundException("юзер не найден");
+        if(dao.findById(id)==null)throw new ModelNotFoundException("юзер не найден");
         dao.deleteById(id);
     }
 
