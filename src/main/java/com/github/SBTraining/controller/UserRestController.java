@@ -26,7 +26,7 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
-        if(user.getDateOfRed()==null || user.getEmail()==null ||
+        if(user.getRegDate()==null || user.getEmail()==null ||
         user.getLogin()==null || user.getPassword()==null){throw new FieldNullException("одно из полей пустое");}
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
@@ -42,7 +42,7 @@ public class UserRestController {
 
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
-        if(user.getDateOfRed()==null || user.getEmail()==null || user.getLogin()==null || 
+        if(user.getRegDate()==null || user.getEmail()==null || user.getLogin()==null ||
         user.getPassword()==null){throw new FieldNullException("одно из полей пустое");}
         userService.update(user);
     }
