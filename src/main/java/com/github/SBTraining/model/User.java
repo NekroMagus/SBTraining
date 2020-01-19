@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
-public class User implements Model {
+
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,15 +14,16 @@ public class User implements Model {
     private int balance;
     private String login;
     private String password;
-    private String dateOfReg;
+    private String regDate;
 
     public User() {}
-    public User(String email,int balance,String login,String password,String dateOfReg) {
+
+    public User(String email,int balance,String login,String password,String regDate) {
         this.email=email;
         this.balance=balance;
         this.login=login;
         this.password=password;
-        this.dateOfReg=dateOfReg;
+        this.regDate=regDate;
     }
 
     public void setId(long id) {
@@ -48,12 +50,12 @@ public class User implements Model {
         return password;
     }
 
-    public void setDateOfReg(String dateOfReg) {
-        this.dateOfReg = dateOfReg;
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
     }
 
-    public String getDateOfRed() {
-        return dateOfReg;
+    public String getRegDate() {
+        return regDate;
     }
 
     public void setEmail(String email) {

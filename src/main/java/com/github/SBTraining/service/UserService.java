@@ -14,7 +14,7 @@ public class UserService {
          User dbUser = dao.findById(user.getId());
          dbUser.setPassword(user.getPassword());
          dbUser.setLogin(user.getLogin());
-         dbUser.setDateOfReg(user.getDateOfRed());
+         dbUser.setRegDate(user.getRegDate());
          dbUser.setEmail(user.getEmail());
          dbUser.setBalance(user.getBalance());
          dao.save(dbUser);
