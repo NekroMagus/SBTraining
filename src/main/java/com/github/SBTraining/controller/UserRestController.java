@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+
 public class UserRestController {
+
     @Autowired
     private PasswordEncoder passwordEncoder;
    
