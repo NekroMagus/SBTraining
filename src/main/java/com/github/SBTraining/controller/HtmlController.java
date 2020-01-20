@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public class HtmlController {
 
-    @GetMapping("/crud")
-    public String getCrudPage() {
-        return "crud";
+    @GetMapping("/html")
+    public String getHtmlPage() {
+        return "index";
     }
 
     @GetMapping("/getAllTeapots")

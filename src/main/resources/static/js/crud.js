@@ -4,6 +4,7 @@ $('#findButton').submit(function (event) {
     $.ajax({
         url: '/teapot/' + id,
         type: 'GET',
+        cache: false,
         success: (data) => {
             let result = JSON.stringify(data, null, 4);
             $('#feedback').html(result);
@@ -27,6 +28,7 @@ $('#create').submit(function (event) {
       url: '/teapot',
       type: "POST",
        data: json,
+       cache: false,
       contentType:'application/json',
       success: (data) => {
           alert(data);
@@ -49,6 +51,7 @@ $('#create').submit(function (event) {
      $.ajax({
          url: '/teapot',
          type: "PUT",
+         cache: false,
          data: json,
          contentType: 'application/json',
          success: (data) => {
@@ -64,6 +67,7 @@ $('#create').submit(function (event) {
   let id = $('#idDelete').val();
   $.ajax({
       url: '/teapot/' + id,
+      cache: false,
       type: "DELETE",
       success: (data) => {
           alert(data);
@@ -77,6 +81,7 @@ $('#create').submit(function (event) {
    event.preventDefault();
    $.ajax({
       url: '/teapot',
+       cache: false,
       type: "GET",
       success: (data) => {
           let result = JSON.stringify(data, null, 4);
