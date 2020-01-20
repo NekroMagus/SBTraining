@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 
+
 public class TeapotRestController {
 
     @Autowired
@@ -23,34 +24,48 @@ public class TeapotRestController {
 
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
-        if(dao.findAll().isEmpty())throw new EmptyListTeapotsException("список чайников пуст");
-
+        if(dao.findAll().isEmpty())
+        {
+            throw new EmptyListTeapotsException("список чайников пуст");
+        }
         return dao.findAll();
     }
 
     @GetMapping("/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)throw new ModelNotFoundException("объект не найден");
+        if(dao.findById(id)==null)
+        {
+            throw new ModelNotFoundException("объект не найден");
+        }
         return dao.findById(id);
     }
 
     @PostMapping("/teapot")
     public void createTeapot(@RequestBody Teapot teapot) {
-        if(teapot.getColor()==null || teapot.getModel()==null ||
-        teapot.getPower()==0 || teapot.getType()==null || teapot.getVolume()==0.0)throw new FieldNullException("одно из полей пустое");
+        if(teapot.getColor()=="" || teapot.getModel()=="" ||
+        teapot.getPower()==0 || teapot.getType()=="" || teapot.getVolume()==0.0)
+        {
+            throw new FieldNullException("одно из полей пустое");
+        }
         dao.save(teapot);
     }
 
     @PutMapping("/teapot")
     public void updateTeapot(@RequestBody Teapot teapot) {
-        if(teapot.getColor()==null || teapot.getModel()==null || teapot.getPower()==0 || 
-        teapot.getType()==null || teapot.getVolume()==0.0)throw new FieldNullException("одно из полей пустое");
+        if(teapot.getColor()=="" || teapot.getModel()=="" || teapot.getPower()==0 ||
+        teapot.getType()=="" || teapot.getVolume()==0.0)
+        {
+            throw new FieldNullException("одно из полей пустое");
+        }
         teapotService.updateTeapot(teapot);
     }
 
     @DeleteMapping("/teapot/{id}")
     public void deleteTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)throw new ModelNotFoundException("объект не найден");
+        if(dao.findById(id)==null)
+        {
+            throw new ModelNotFoundException("объект не найден");
+        }
         dao.deleteById(id);
     }
 

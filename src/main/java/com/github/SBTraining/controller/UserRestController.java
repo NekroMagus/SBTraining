@@ -26,15 +26,21 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
-        if(user.getRegDate()==null || user.getEmail()==null ||
-        user.getLogin()==null || user.getPassword()==null){throw new FieldNullException("одно из полей пустое");}
+        if(user.getRegDate()=="" || user.getEmail()=="" ||
+        user.getLogin()=="" || user.getPassword()=="")
+        {
+            throw new FieldNullException("одно из полей пустое");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        if(dao.findById(id)==null){throw new ModelNotFoundException("объект  не найден");}
+        if(dao.findById(id)==null)
+        {
+            throw new ModelNotFoundException("объект  не найден");
+        }
         return dao.findById(id);
     }
 
@@ -42,14 +48,20 @@ public class UserRestController {
 
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
-        if(user.getRegDate()==null || user.getEmail()==null || user.getLogin()==null ||
-        user.getPassword()==null){throw new FieldNullException("одно из полей пустое");}
+        if(user.getRegDate()=="" || user.getEmail()=="" || user.getLogin()=="" ||
+        user.getPassword()=="")
+        {
+            throw new FieldNullException("одно из полей пустое");
+        }
         userService.update(user);
     }
 
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
-        if(dao.findById(id)==null){throw new ModelNotFoundException("объект не найден");}
+        if(dao.findById(id)==null)
+        {
+            throw new ModelNotFoundException("объект не найден");
+        }
         dao.deleteById(id);
     }
 

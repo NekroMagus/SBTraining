@@ -23,4 +23,5 @@ public class ExceptionRestController {
     public String callModelNotFoundException() {
         return "объект не найден";
     }
+
 }
