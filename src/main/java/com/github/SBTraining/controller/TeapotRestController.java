@@ -22,8 +22,7 @@ public class TeapotRestController {
 
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
-        if(dao.findAll().isEmpty())
-        {
+        if(dao.findAll().isEmpty()) {
             throw new EmptyListTeapotsException("список чайников пуст");
         }
         return dao.findAll();
@@ -31,18 +30,17 @@ public class TeapotRestController {
 
     @GetMapping("/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)
-        {
+        if(dao.findById(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
+        commentService.getGoodComments(id);
         return dao.findById(id);
     }
 
     @PostMapping("/teapot")
     public void createTeapot(@RequestBody Teapot teapot) {
         if(teapot.getColor()=="" || teapot.getModel()=="" ||
-        teapot.getPower()==0 || teapot.getType()=="" || teapot.getVolume()==0.0)
-        {
+        teapot.getPower()==0 || teapot.getType()=="" || teapot.getVolume()==0.0) {
             throw new FieldNullException("одно из полей пустое");
         }
         dao.save(teapot);
@@ -51,8 +49,7 @@ public class TeapotRestController {
     @PutMapping("/teapot")
     public void updateTeapot(@RequestBody Teapot teapot) {
         if(teapot.getColor()=="" || teapot.getModel()=="" || teapot.getPower()==0 ||
-        teapot.getType()=="" || teapot.getVolume()==0.0)
-        {
+        teapot.getType()=="" || teapot.getVolume()==0.0) {
             throw new FieldNullException("одно из полей пустое");
         }
         teapotService.updateTeapot(teapot);
@@ -60,8 +57,7 @@ public class TeapotRestController {
 
     @DeleteMapping("/teapot/{id}")
     public void deleteTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null)
-        {
+        if(dao.findById(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
         dao.deleteById(id);
