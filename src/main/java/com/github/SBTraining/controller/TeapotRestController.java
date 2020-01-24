@@ -33,7 +33,6 @@ public class TeapotRestController {
         if(dao.findById(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
-        commentService.getGoodComments(id);
         return dao.findById(id);
     }
 
