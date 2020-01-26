@@ -15,6 +15,8 @@ public class Teapot  {
     private String color;
     private double volume;
     private int power;
+    
+    //TODO: need add to annotation @ManyToOne for List<Message> in this class
 
     public Teapot() {
     }
