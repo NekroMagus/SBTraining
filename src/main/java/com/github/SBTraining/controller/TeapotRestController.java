@@ -28,7 +28,7 @@ public class TeapotRestController {
         return dao.findAll();
     }
 
-    @GetMapping("/teapot/{id}")
+    @GetMapping("/api/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
         if(dao.findById(id)==null) {
             throw new ModelNotFoundException("объект не найден");

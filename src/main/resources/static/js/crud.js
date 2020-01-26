@@ -2,7 +2,7 @@ $('#findButton').submit(function (event) {
     event.preventDefault();
     let id = $('#findInput').val();
     $.ajax({
-        url: '/teapot/' + id,
+        url: '/api/teapot/' + id,
         type: 'GET',
         cache: false,
         success: (data) => {
