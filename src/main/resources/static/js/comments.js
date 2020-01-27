@@ -1,8 +1,7 @@
  let url = location.href;
     let mapping = url.slice(22,url.length);
     let id = mapping.slice(mapping.indexOf("/")+1,url.length);
-    start();
-    function start() {
+   $(document).ready( function () {
         $.ajax({
             url: 'api/teapot/' + id,
             type: 'GET',
@@ -16,7 +15,7 @@
             }
         });
 
-    }
+    });
    $('#getComments').submit(function(event){
        event.preventDefault();
        $.ajax({
