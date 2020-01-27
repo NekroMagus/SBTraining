@@ -1,6 +1,7 @@
 package com.github.SBTraining.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="Teapot")
@@ -16,7 +17,8 @@ public class Teapot  {
     private double volume;
     private int power;
     
-    //TODO: need add to annotation @ManyToOne for List<Message> in this class
+    @OneToMany
+    private List<Comment> list;
 
     public Teapot() {
     }
