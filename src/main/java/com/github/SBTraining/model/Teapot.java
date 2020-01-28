@@ -17,6 +17,7 @@ public class Teapot  {
     private double volume;
     private int power;
     
+    //TODO: add JoinColumn
     @OneToMany
     private List<Comment> list;
 
