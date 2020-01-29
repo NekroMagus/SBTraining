@@ -16,9 +16,9 @@ public class Teapot  {
     private String color;
     private double volume;
     private int power;
-    
-    //TODO: add JoinColumn
-    @OneToMany
+
+    @OneToMany(cascade=CascadeType.REMOVE)
+    @JoinColumn(name="Comments")
     private List<Comment> list;
 
     public Teapot() {
