@@ -20,4 +20,5 @@ public class UserService {
          dbUser.setBalance(user.getBalance());
          dao.save(dbUser);
      }
+
 }

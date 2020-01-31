@@ -1,4 +1,4 @@
-package com.github.SBTraining.controller;
+package com.github.SBTraining.restcontroller;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -9,4 +9,5 @@ public class TestRestController {
     public String helloController() {
         return "Hi";
     }
+
 }

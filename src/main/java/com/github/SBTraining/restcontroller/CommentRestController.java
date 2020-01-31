@@ -1,11 +1,10 @@
-package com.github.SBTraining.controller;
+package com.github.SBTraining.restcontroller;
 
 import com.github.SBTraining.dao.CommentDao;
 import com.github.SBTraining.model.Comment;
 import com.github.SBTraining.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -39,4 +38,5 @@ public class CommentRestController {
     public void deleteComment(@PathVariable("id") long id) {
         dao.deleteById(id);
     }
+
 }

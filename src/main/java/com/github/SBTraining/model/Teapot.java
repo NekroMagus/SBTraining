@@ -10,19 +10,17 @@ public class Teapot  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String type;
     private String model;
     private String color;
     private double volume;
     private int power;
 
-    @OneToMany(cascade=CascadeType.REMOVE)
     @JoinColumn(name="Comments")
+    @OneToMany(cascade=CascadeType.REMOVE)
     private List<Comment> list;
 
-    public Teapot() {
-    }
+    public Teapot() {}
 
     public Teapot(String type, String model, String color, double volume, int power) {
         this.type = type;
@@ -31,6 +29,7 @@ public class Teapot  {
         this.volume = volume;
         this.power = power;
     }
+
 
     public long getId() {
         return id;
@@ -79,4 +78,5 @@ public class Teapot  {
     public void setPower(int power) {
         this.power = power;
     }
+
 }

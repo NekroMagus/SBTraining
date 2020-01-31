@@ -1,7 +1,8 @@
-package com.github.SBTraining.controller;
+package com.github.SBTraining.restcontroller;
+
 
 import com.github.SBTraining.exceptions.EmptyListTeapotsException;
-import com.github.SBTraining.exceptions.FieldNullException;
+import com.github.SBTraining.exceptions.FieldEmptyException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,7 +15,7 @@ public class ExceptionRestController {
      return "пустой список чайников";
     }
 
-    @ExceptionHandler(value = FieldNullException.class)
+    @ExceptionHandler(value = FieldEmptyException.class)
     public String callFieldNullException() {
         return "одно из полей пустое";
     }

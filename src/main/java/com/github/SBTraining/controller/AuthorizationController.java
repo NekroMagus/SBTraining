@@ -10,4 +10,5 @@ public class AuthorizationController {
     public String login() {
         return "login";
     }
+
 }

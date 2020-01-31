@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class HtmlController {
+public class TeapotCrudController {
 
-    @GetMapping("/html")
+    @GetMapping("/crudTeapot")
     public String getHtmlPage() {
-        return "index";
+        return "crudTeapot";
     }
 
     @GetMapping("/getAllTeapots")
     public String getAllTeapots() {return "allTeapots";}
+
 }

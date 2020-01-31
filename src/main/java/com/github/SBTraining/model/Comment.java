@@ -25,6 +25,10 @@ public class Comment implements Comparable<Comment> {
       this.estimation=estimation;
    }
 
+   @Override
+   public int compareTo(Comment o) {
+      return o.getEstimation()-estimation;
+   }
 
    public long getId() {
       return id;
@@ -74,8 +78,5 @@ public class Comment implements Comparable<Comment> {
       this.estimation = estimation;
    }
 
-   @Override
-   public int compareTo(Comment o) {
-      return o.getEstimation()-estimation;
-   }
+
 }

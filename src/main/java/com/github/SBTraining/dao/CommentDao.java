@@ -8,4 +8,5 @@ import java.util.List;
 public interface CommentDao extends JpaRepository<Comment,Long> {
       Comment findById(long idTeapot);
       List<Comment> findAllByIdTeapot(long idTeapot);
+
 }
