@@ -1,7 +1,6 @@
 package com.github.SBTraining.restcontroller;
 
 import com.github.SBTraining.dao.UserDao;
-import com.github.SBTraining.exceptions.FieldEmptyException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
@@ -26,10 +25,6 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
-        if(user.getRegDate()=="" || user.getEmail()=="" ||
-                user.getLogin()=="" || user.getPassword()=="") {
-            throw new FieldEmptyException("одно из полей пустое");
-        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
@@ -46,10 +41,6 @@ public class UserRestController {
 
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
-        if(user.getRegDate()=="" || user.getEmail()=="" || user.getLogin()=="" ||
-                user.getPassword()=="") {
-            throw new FieldEmptyException("одно из полей пустое");
-        }
         userService.update(user);
     }
 

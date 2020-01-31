@@ -2,7 +2,6 @@ package com.github.SBTraining.restcontroller;
 
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.exceptions.EmptyListTeapotsException;
-import com.github.SBTraining.exceptions.FieldEmptyException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import com.github.SBTraining.model.Teapot;
 import com.github.SBTraining.service.TeapotService;
@@ -41,20 +40,12 @@ public class TeapotRestController {
 
     @PostMapping("/teapot")
     public void createTeapot(@RequestBody Teapot teapot) {
-        if(teapot.getColor()=="" || teapot.getModel()=="" ||
-        teapot.getPower()==0 || teapot.getType()=="" || teapot.getVolume()==0.0) {
-            throw new FieldEmptyException("одно из полей пустое");
-        }
         dao.save(teapot);
     }
 
 
     @PutMapping("/teapot")
     public void updateTeapot(@RequestBody Teapot teapot) {
-        if(teapot.getColor()=="" || teapot.getModel()=="" || teapot.getPower()==0 ||
-        teapot.getType()=="" || teapot.getVolume()==0.0) {
-            throw new FieldEmptyException("одно из полей пустое");
-        }
         teapotService.updateTeapot(teapot);
     }
 

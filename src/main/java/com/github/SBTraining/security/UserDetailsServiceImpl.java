@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,4 +23,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         set.add(new SimpleGrantedAuthority("USER"));
         return new org.springframework.security.core.userdetails.User(user.getLogin(),user.getPassword(),set);
     }
+
 }
