@@ -1,7 +1,6 @@
 package com.github.SBTraining.restcontroller;
 
 import com.github.SBTraining.dao.TeapotDao;
-import com.github.SBTraining.exceptions.EmptyListTeapotsException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import com.github.SBTraining.model.Teapot;
 import com.github.SBTraining.service.TeapotService;
