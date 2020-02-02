@@ -1,4 +1,4 @@
-package com.github.SBTraining.restcontroller;
+package com.github.SBTraining.controller;
 
 import org.springframework.web.bind.annotation.*;
 

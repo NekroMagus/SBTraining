@@ -1,4 +1,4 @@
-package com.github.SBTraining.restcontroller;
+package com.github.SBTraining.controller.comment;
 
 import com.github.SBTraining.dao.CommentDao;
 import com.github.SBTraining.model.Comment;

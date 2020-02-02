@@ -1,4 +1,4 @@
-package com.github.SBTraining.restcontroller;
+package com.github.SBTraining.controller.teapot;
 
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.exceptions.ModelNotFoundException;

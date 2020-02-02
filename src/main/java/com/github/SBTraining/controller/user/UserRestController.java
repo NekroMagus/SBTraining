@@ -1,4 +1,4 @@
-package com.github.SBTraining.restcontroller;
+package com.github.SBTraining.controller.user;
 
 import com.github.SBTraining.dao.UserDao;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
