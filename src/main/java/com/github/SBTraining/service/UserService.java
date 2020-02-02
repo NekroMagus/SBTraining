@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-     @Autowired
+      @Autowired
      private UserDao dao;
 
      public void update(User user) {
@@ -19,6 +19,18 @@ public class UserService {
          dbUser.setEmail(user.getEmail());
          dbUser.setBalance(user.getBalance());
          dao.save(dbUser);
+     }
+
+     public void createUser(User user) {
+         dao.save(user);
+     }
+
+     public void deleteUser(long id) {
+         dao.deleteById(id);
+     }
+
+     public User findUser(long id) {
+         return dao.findById(id);
      }
 
 }
