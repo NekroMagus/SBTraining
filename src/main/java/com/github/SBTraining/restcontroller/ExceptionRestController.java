@@ -1,7 +1,5 @@
 package com.github.SBTraining.restcontroller;
 
-
-import com.github.SBTraining.exceptions.EmptyListTeapotsException;
 import com.github.SBTraining.exceptions.ModelNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
