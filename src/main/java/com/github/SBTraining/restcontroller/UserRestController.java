@@ -11,45 +11,41 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserRestController {
-
-
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserDao dao;
+    private UserService service;
 
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        dao.save(user);
+        service.createUser(user);
     }
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        if(dao.findById(id)==null) {
-            throw new ModelNotFoundException("объект  не найден");
+        if(service.findUser(id)==null) {
+            throw new ModelNotFoundException("объект не найден");
         }
-        return dao.findById(id);
+        return service.findUser(id);
     }
 
 
 
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
-        userService.update(user);
+        service.update(user);
     }
 
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
-        if(dao.findById(id)==null) {
+        if(service.findUser(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
-        dao.deleteById(id);
+        service.deleteUser(id);
     }
 
 }
