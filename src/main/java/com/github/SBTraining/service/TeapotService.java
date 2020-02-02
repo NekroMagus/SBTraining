@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TeapotService {
-
-  @Autowired
+  
+ @Autowired
   private TeapotDao dao;
 
   public void updateTeapot(Teapot teapot) {
@@ -21,4 +21,19 @@ public class TeapotService {
     dao.save(dbTeapot);
   }
 
+  public void createTeapot(Teapot teapot) {
+    dao.save(teapot);
+  }
+
+  public void deleteTeapot(long id) {
+    dao.deleteById(id);
+  }
+
+  public Teapot findTeapot(long id) {
+    return dao.findById(id);
+  }
+
+  public List<Teapot> getAllTeapots() {
+    return dao.findAll();
+  }
 }
