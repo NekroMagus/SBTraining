@@ -13,50 +13,48 @@ import java.util.List;
 public class TeapotRestController {
 
 
-    @Autowired
-    private TeapotDao dao;
-
-    @Autowired
-    private TeapotService teapotService;
+   @Autowired
+    private TeapotService service;
 
 
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
-        if(dao.findAll().isEmpty()) {
-            throw new EmptyListTeapotsException("список чайников пуст");
+        if(service.getAllTeapots().isEmpty()) {
+            throw new ModelNotFoundException("список чайников пуст");
         }
-        return dao.findAll();
+        return service.getAllTeapots();
     }
 
 
     @GetMapping("/api/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null) {
+        if(service.findTeapot(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
-        return dao.findById(id);
+        return service.findTeapot(id);
     }
 
 
     @PostMapping("/teapot")
     public void createTeapot(@RequestBody Teapot teapot) {
-        dao.save(teapot);
+        service.createTeapot(teapot);
     }
 
 
     @PutMapping("/teapot")
     public void updateTeapot(@RequestBody Teapot teapot) {
-        teapotService.updateTeapot(teapot);
+        service.updateTeapot(teapot);
     }
 
 
     @DeleteMapping("/teapot/{id}")
     public void deleteTeapot(@PathVariable("id") long id) {
-        if(dao.findById(id)==null) {
+        if(service.findTeapot(id)==null) {
             throw new ModelNotFoundException("объект не найден");
         }
-        dao.deleteById(id);
+        service.deleteTeapot(id);
     }
+
 
 
 }
