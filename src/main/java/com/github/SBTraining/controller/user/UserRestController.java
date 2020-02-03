@@ -1,7 +1,6 @@
 package com.github.SBTraining.controller.user;
 
-import com.github.SBTraining.dao.UserDao;
-import com.github.SBTraining.exceptions.ModelNotFoundException;
+import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserRestController {
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
         if(service.findUser(id)==null) {
-            throw new ModelNotFoundException("объект не найден");
+            throw new UserNotFoundException("пользователь не найден");
         }
         return service.findUser(id);
     }
@@ -43,7 +42,7 @@ public class UserRestController {
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
         if(service.findUser(id)==null) {
-            throw new ModelNotFoundException("объект не найден");
+            throw new UserNotFoundException("пользователь не найден");
         }
         service.deleteUser(id);
     }

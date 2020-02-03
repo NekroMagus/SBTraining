@@ -12,21 +12,16 @@ import java.util.List;
 public class CommentRestController {
 
    @Autowired
-    private CommentDao dao;
-
-   @Autowired
     private CommentService service;
 
     @GetMapping("/comment/{id}")
     public List<Comment> getAllComments(@PathVariable("id") long idTeapot) {
-        List<Comment> list = dao.findAllByIdTeapot(idTeapot);
-        Collections.sort(list);
-        return list;
+          return service.getComments(idTeapot);
     }
 
     @PostMapping("/comment")
     public void createComment(@RequestBody Comment comment) {
-        dao.save(comment);
+        service.createComment(comment);
     }
 
     @PutMapping("/comment")
@@ -36,7 +31,7 @@ public class CommentRestController {
 
     @DeleteMapping("/comment/{id}")
     public void deleteComment(@PathVariable("id") long id) {
-        dao.deleteById(id);
+        service.deleteComment(id);
     }
 
 }

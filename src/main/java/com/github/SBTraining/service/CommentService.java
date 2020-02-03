@@ -5,6 +5,9 @@ import com.github.SBTraining.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class CommentService {
 
@@ -21,4 +24,17 @@ public class CommentService {
        dao.save(dbComment);
    }
 
+   public void createComment(Comment comment) {
+       dao.save(comment);
+   }
+
+   public void deleteComment(long id) {
+       dao.deleteById(id);
+   }
+
+   public List<Comment> getComments(long idTeapot) {
+       List<Comment> list = dao.findAllByIdTeapot(idTeapot);
+       Collections.sort(list);
+       return list;
+   }
 }
