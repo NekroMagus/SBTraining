@@ -16,7 +16,6 @@ public class CommentService {
 
    public void updateComment(Comment comment) {
        Comment dbComment = dao.findById(comment.getId());
-       dbComment.setIdTeapot(comment.getIdTeapot());
        dbComment.setText(comment.getText());
        dbComment.setEstimation(comment.getEstimation());
        dbComment.setDateCreate(comment.getDateCreate());
@@ -32,8 +31,8 @@ public class CommentService {
        dao.deleteById(id);
    }
 
-   public List<Comment> getComments(long idTeapot) {
-       List<Comment> list = dao.findAllByIdTeapot(idTeapot);
+   public List<Comment> getComments(long id) {
+       List<Comment> list = dao.findAllById(id);
        Collections.sort(list);
        return list;
    }

@@ -1,5 +1,6 @@
 package com.github.SBTraining.security;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**","/api/teapot/*","/comment","/comment/*").permitAll()
+                .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**","/api/teapot/*","/comment","/comment/*","/add1").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -46,4 +47,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
 

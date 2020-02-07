@@ -9,17 +9,18 @@ public class Comment implements Comparable<Comment> {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
-   private long idTeapot;
    private String text;
    private String name;
    private String dateCreate;
    private byte estimation;
 
+   @ManyToOne(cascade = CascadeType.ALL)
+   private Teapot teapot;
+
    public Comment() {}
 
-   public Comment(long id,long idTeapot,String text,String name,String dateCreate,byte estimation) {
+   public Comment(long id,String text,String name,String dateCreate,byte estimation) {
       this.id=id;
-      this.idTeapot=idTeapot;
       this.name=name;
       this.dateCreate=dateCreate;
       this.estimation=estimation;
@@ -36,14 +37,6 @@ public class Comment implements Comparable<Comment> {
 
    public void setId(long id) {
       this.id = id;
-   }
-
-   public long getIdTeapot() {
-      return idTeapot;
-   }
-
-   public void setIdTeapot(long idTeapot) {
-      this.idTeapot = idTeapot;
    }
 
    public String getText() {
@@ -77,6 +70,4 @@ public class Comment implements Comparable<Comment> {
    public void setEstimation(byte estimation) {
       this.estimation = estimation;
    }
-
-
 }

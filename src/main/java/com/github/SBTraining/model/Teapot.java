@@ -12,12 +12,12 @@ public class Teapot  {
     private long id;
     private String type;
     private String model;
+    private int power;
     private String color;
     private double volume;
-    private int power;
 
-    @JoinColumn(name="Comments")
-    @OneToMany(cascade=CascadeType.REMOVE)
+    @JoinColumn(name="id_Teapot")
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Comment> list;
 
     public Teapot() {}

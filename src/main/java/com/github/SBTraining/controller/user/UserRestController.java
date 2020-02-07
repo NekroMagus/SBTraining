@@ -4,15 +4,13 @@ import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 public class UserRestController {
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     private UserService service;
@@ -20,7 +18,6 @@ public class UserRestController {
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         service.createUser(user);
     }
 

@@ -5,18 +5,20 @@ import com.github.SBTraining.model.Comment;
 import com.github.SBTraining.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 public class CommentRestController {
 
+    @Autowired
+    private CommentDao dao;
+
    @Autowired
     private CommentService service;
 
     @GetMapping("/comment/{id}")
-    public List<Comment> getAllComments(@PathVariable("id") long idTeapot) {
-          return service.getComments(idTeapot);
+    public List<Comment> getAllComments(@PathVariable("id") long id) {
+          return service.getComments(id);
     }
 
     @PostMapping("/comment")
