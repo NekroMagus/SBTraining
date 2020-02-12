@@ -16,7 +16,6 @@ public class Teapot  {
     private String color;
     private double volume;
 
-    @JoinColumn(name="id_Teapot")
     @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
     private List<Comment> list;
 
