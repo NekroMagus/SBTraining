@@ -14,7 +14,8 @@ public class Comment implements Comparable<Comment> {
    private String dateCreate;
    private byte estimation;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name="id_Teapot")
+   @ManyToOne()
    private Teapot teapot;
 
    public Comment() {}
