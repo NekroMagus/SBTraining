@@ -17,7 +17,7 @@ public class Teapot  {
     private double volume;
 
     @JoinColumn(name="id_Teapot")
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
     private List<Comment> list;
 
     public Teapot() {}
