@@ -5,6 +5,7 @@ import com.github.SBTraining.model.Teapot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,5 +38,11 @@ public class TeapotService {
 
   public List<Teapot> getAllTeapots() {
     return dao.findAll();
+  }
+
+  public Teapot getGoodTeapot(long id) {
+      List<Teapot> list = dao.findAll();
+      Collections.sort(list);
+      return list.get((int) id);
   }
 }

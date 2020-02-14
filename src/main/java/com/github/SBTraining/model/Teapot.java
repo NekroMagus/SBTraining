@@ -1,11 +1,12 @@
 package com.github.SBTraining.model;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.List;
 
 @Entity
 @Table(name="Teapot")
-public class Teapot  {
+public class Teapot implements Comparable<Teapot> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +16,8 @@ public class Teapot  {
     private int power;
     private String color;
     private double volume;
-
+    private String photoFile;
+    private byte rating;
     @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
     private List<Comment> list;
 
@@ -78,4 +80,24 @@ public class Teapot  {
         this.power = power;
     }
 
+    public String getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(String photoFile) {
+        this.photoFile = photoFile;
+    }
+
+    public byte getRating() {
+        return rating;
+    }
+
+    public void setRating(byte rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public int compareTo(Teapot teapot) {
+        return teapot.rating-rating;
+    }
 }

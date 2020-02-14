@@ -53,6 +53,8 @@ public class TeapotRestController {
         service.deleteTeapot(id);
     }
 
-
-
+    @GetMapping("/good/teapot/{id}")
+    public Teapot getGoodTeapot(@PathVariable long id) {
+        return service.getGoodTeapot(id);
+    }
 }
