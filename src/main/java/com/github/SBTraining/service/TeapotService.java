@@ -40,9 +40,9 @@ public class TeapotService {
     return dao.findAll();
   }
 
-  public Teapot getGoodTeapot(long id) {
+  public List<Teapot> getGoodTeapots() {
       List<Teapot> list = dao.findAll();
       Collections.sort(list);
-      return list.get((int) id);
+      return list;
   }
 }
