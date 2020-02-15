@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class TeapotService {
   
- @Autowired
+  @Autowired
   private TeapotDao dao;
 
   public void updateTeapot(Teapot teapot) {
@@ -45,4 +45,5 @@ public class TeapotService {
       Collections.sort(list);
       return list;
   }
+
 }

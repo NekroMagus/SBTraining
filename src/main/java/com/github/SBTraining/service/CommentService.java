@@ -12,7 +12,7 @@ import java.util.List;
 public class CommentService {
 
    @Autowired
-    private CommentDao dao;
+   private CommentDao dao;
 
    public void updateComment(Comment comment) {
        Comment dbComment = dao.findById(comment.getId());
@@ -32,8 +32,9 @@ public class CommentService {
    }
 
    public List<Comment> getComments(long id) {
-       List<Comment> list = dao.findAllById(id);
+       List<Comment> list = dao.findAllByIdTeapot(id);
        Collections.sort(list);
        return list;
    }
+
 }

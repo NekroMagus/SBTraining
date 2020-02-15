@@ -10,9 +10,6 @@ import java.util.List;
 @RestController
 public class CommentRestController {
 
-    @Autowired
-    private CommentDao dao;
-
    @Autowired
     private CommentService service;
 

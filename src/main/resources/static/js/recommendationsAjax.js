@@ -1,6 +1,6 @@
 $(document).ready(function () {
        $.ajax({
-           url: '/good/teapot',
+           url: '/api/teapot',
            type: 'GET' ,
            cache: false,
            success: (data) => {
