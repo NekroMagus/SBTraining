@@ -18,6 +18,7 @@ public class Teapot implements Comparable<Teapot> {
     private double volume;
     private String photoFile;
     private byte rating;
+
     @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
     private List<Comment> list;
 
@@ -94,6 +95,14 @@ public class Teapot implements Comparable<Teapot> {
 
     public void setRating(byte rating) {
         this.rating = rating;
+    }
+
+    public List<Comment> getList() {
+        return list;
+    }
+
+    public void setList(List<Comment> list) {
+        this.list = list;
     }
 
     @Override

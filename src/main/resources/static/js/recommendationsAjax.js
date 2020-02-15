@@ -14,8 +14,11 @@ $(document).ready(function () {
                model.attr("src","/api/teapot/" + id);
 
                 */
-               let teapot = JSON.stringify(data,nyll,4);
+               let teapot = JSON.stringify(data,null,4);
                $('#feedback').html(teapot);
+           },
+           error: (err) => {
+               $('#feedback').html(err);
            }
        });
 });

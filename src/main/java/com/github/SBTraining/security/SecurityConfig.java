@@ -19,7 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**","/api/teapot/*","/comment","/comment/*","/add1","/add2","/add3","/recommendations").permitAll()
+                .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**",
+                        "/api/teapot/*","/comment","/comment/*","/add1",
+                        "/add2","/add3","/recommendations", "/good/teapot").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
