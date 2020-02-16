@@ -31,10 +31,4 @@ public class CommentService {
        dao.deleteById(id);
    }
 
-   public List<Comment> getComments(long id) {
-       List<Comment> list = dao.findAllByIdTeapot(id);
-       Collections.sort(list);
-       return list;
-   }
-
 }
