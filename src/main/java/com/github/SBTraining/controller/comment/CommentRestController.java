@@ -13,11 +13,6 @@ public class CommentRestController {
    @Autowired
     private CommentService service;
 
-    @GetMapping("/comment/{id}")
-    public List<Comment> getAllComments(@PathVariable("id") long id) {
-          return service.getComments(id);
-    }
-
     @PostMapping("/comment")
     public void createComment(@RequestBody Comment comment) {
         service.createComment(comment);
