@@ -1,6 +1,7 @@
 package com.github.SBTraining.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -14,6 +15,9 @@ public class User {
     private String login;
     private String password;
     private String regDate;
+
+    @OneToMany(cascade=CascadeType.REFRESH,mappedBy = "user")
+    private List<Message> messageList;
 
     public User() {}
 
@@ -71,5 +75,13 @@ public class User {
 
     public int getBalance() {
         return balance;
+    }
+
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
     }
 }
