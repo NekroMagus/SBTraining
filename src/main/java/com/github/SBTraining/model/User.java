@@ -84,4 +84,15 @@ public class User {
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if(o.getClass()==this.getClass()) return true;
+        if(o.getClass()!=this.getClass()) return false;
+        User u = (User) o;
+        return this.getLogin()==u.getLogin() && this.getPassword()==u.getPassword() &&
+               this.getRegDate()==u.getRegDate() && this.getEmail()==u.getEmail() &&
+               this.getBalance()==u.getBalance() && this.getMessageList()==u.getMessageList();
+    }
 }

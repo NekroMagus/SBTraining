@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**",
                         "/api/teapot/*","/comment","/comment/*","/add1",
-                        "/add2","/add3","/recommendations", "/good/teapot").permitAll()
+                        "/add2","/add3","/recommendations", "/good/teapot","/serverGet","/serverSend","/clientGet","/chat").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
