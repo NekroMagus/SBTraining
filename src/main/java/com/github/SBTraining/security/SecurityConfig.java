@@ -1,6 +1,7 @@
 package com.github.SBTraining.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,8 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/teapot","/teapot/*","/crudTeapot","/login","/static/**",
-                        "/api/teapot/*","/comment","/comment/*","/add1",
-                        "/add2","/add3","/recommendations", "/good/teapot","/serverGet","/serverSend","/clientGet","/chat").permitAll()
+                        "/api/teapot/*","/comment","/comment/*","/add1","/recommendations", "/good/teapot","/serverGet",
+                        "/serverSend","/clientGet","/chat","/getCurrentName").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -32,7 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
     }
-
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER");
+    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(getPasswordEncoder());
