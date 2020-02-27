@@ -8,12 +8,17 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name="id")
     private long id;
+
+    @Column(name="text")
     private String text;
 
     @JoinColumn(name = "id_User")
     @ManyToOne()
     private User user;
+
     public Message() {}
 
     public Message(long id,String text) {

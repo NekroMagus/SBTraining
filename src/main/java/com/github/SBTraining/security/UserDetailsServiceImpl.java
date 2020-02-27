@@ -1,6 +1,5 @@
 package com.github.SBTraining.security;
 
-import com.github.SBTraining.dao.UserDao;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService service;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = service.findUser(login);
-        Set<GrantedAuthority> set = new HashSet<>();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = service.findUserByLogin(username);
+        Set <GrantedAuthority> set = new HashSet<>();
         set.add(new SimpleGrantedAuthority("USER"));
         return new org.springframework.security.core.userdetails.User(user.getLogin(),user.getPassword(),set);
     }

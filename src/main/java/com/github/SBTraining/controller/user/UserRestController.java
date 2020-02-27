@@ -7,6 +7,7 @@ import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -22,11 +24,13 @@ import java.util.List;
 public class UserRestController {
     
     @Autowired
-
     private UserDao dao;
+
     @Autowired
     private UserService service;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
@@ -45,7 +49,7 @@ public class UserRestController {
     public void add1() {
         User user = new User();
         user.setLogin("Mark");
-        user.setPassword("2453");
+        user.setPassword("1111");
         dao.save(user);
     }
     @PutMapping("/user")
@@ -59,6 +63,11 @@ public class UserRestController {
             throw new UserNotFoundException("пользователь не найден");
         }
         service.deleteUser(id);
+    }
+
+    @GetMapping("/getCurrentUser")
+    public User getCurrentUser(Principal principal) {
+       return service.findUserByLogin(principal.getName());
     }
 
 }

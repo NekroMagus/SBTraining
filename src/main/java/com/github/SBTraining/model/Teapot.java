@@ -1,7 +1,6 @@
 package com.github.SBTraining.model;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.List;
 
 @Entity
@@ -10,17 +9,34 @@ public class Teapot implements Comparable<Teapot> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name="id")
     private long id;
+
+    @Column(name="type")
     private String type;
+
+    @Column(name="model")
     private String model;
+
+    @Column(name="power")
     private int power;
+
+    @Column(name="color")
     private String color;
+
+    @Column(name="volume")
     private double volume;
-    private String photoFile;
+
+    @Column(name="wayphotofile")
+    private String wayPhotoFile;
+
+    @Column(name="rating")
     private byte rating;
 
+    @Column(name="listcomments")
     @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
-    private List<Comment> list;
+    private List<Comment> listComments;
 
     public Teapot() {}
 
@@ -81,14 +97,6 @@ public class Teapot implements Comparable<Teapot> {
         this.power = power;
     }
 
-    public String getPhotoFile() {
-        return photoFile;
-    }
-
-    public void setPhotoFile(String photoFile) {
-        this.photoFile = photoFile;
-    }
-
     public byte getRating() {
         return rating;
     }
@@ -97,16 +105,24 @@ public class Teapot implements Comparable<Teapot> {
         this.rating = rating;
     }
 
-    public List<Comment> getList() {
-        return list;
-    }
-
-    public void setList(List<Comment> list) {
-        this.list = list;
-    }
-
     @Override
     public int compareTo(Teapot teapot) {
         return teapot.rating-rating;
+    }
+
+    public String getWayPhotoFile() {
+        return wayPhotoFile;
+    }
+
+    public void setWayPhotoFile(String wayPhotoFile) {
+        this.wayPhotoFile = wayPhotoFile;
+    }
+
+    public List<Comment> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<Comment> listComments) {
+        this.listComments = listComments;
     }
 }

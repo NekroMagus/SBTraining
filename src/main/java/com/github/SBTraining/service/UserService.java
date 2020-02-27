@@ -3,17 +3,23 @@ package com.github.SBTraining.service;
 import com.github.SBTraining.dao.UserDao;
 import com.github.SBTraining.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 public class UserService {
 
-      @Autowired
+     @Autowired
      private UserDao dao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
      public void update(User user) {
          User dbUser = dao.findById(user.getId());
-         dbUser.setPassword(user.getPassword());
+         dbUser.setPassword(passwordEncoder.encode(user.getPassword()));
          dbUser.setLogin(user.getLogin());
          dbUser.setRegDate(user.getRegDate());
          dbUser.setEmail(user.getEmail());
@@ -33,8 +39,9 @@ public class UserService {
          return dao.findById(id);
      }
 
-     public User findUser(String login) {
+     public User findUserByLogin(String login) {
          return dao.findByLogin(login);
      }
 
 }
+
