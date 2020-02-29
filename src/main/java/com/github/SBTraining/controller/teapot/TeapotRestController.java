@@ -1,23 +1,23 @@
 package com.github.SBTraining.controller.teapot;
 
-import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.exceptions.TeapotNotFoundException;
 import com.github.SBTraining.model.Teapot;
 import com.github.SBTraining.service.TeapotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 public class TeapotRestController {
 
-   @Autowired
+    @Autowired
     private TeapotService service;
 
 
     @GetMapping("/teapot")
     public List<Teapot> findAllTeapot() {
-        if(service.getAllTeapots().isEmpty()) {
+        if (service.getAllTeapots().isEmpty()) {
             throw new TeapotNotFoundException("список чайников пуст");
         }
         return service.getAllTeapots();
@@ -26,7 +26,7 @@ public class TeapotRestController {
 
     @GetMapping("/api/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {
-        if(service.findTeapot(id)==null) {
+        if (service.findTeapot(id) == null) {
             throw new TeapotNotFoundException("чайник не найден");
         }
         return service.findTeapot(id);
@@ -47,7 +47,7 @@ public class TeapotRestController {
 
     @DeleteMapping("/teapot/{id}")
     public void deleteTeapot(@PathVariable("id") long id) {
-        if(service.findTeapot(id)==null) {
+        if (service.findTeapot(id) == null) {
             throw new TeapotNotFoundException("чайник не найден");
         }
         service.deleteTeapot(id);

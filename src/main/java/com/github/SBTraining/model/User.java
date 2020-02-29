@@ -8,39 +8,41 @@ import java.util.Objects;
 @Table(name = "User")
 public class User {
 
+    //TODO: you should delete column annotation if variable.name == Column.name
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="balance")
+    @Column(name = "balance")
     private int balance;
 
-    @Column(name="login",unique = true)
+    @Column(name = "login", unique = true)
     private String login;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="regdate")
+    @Column(name = "regdate")
     private String regDate;
 
-    @Column(name="messagelist")
-    @OneToMany(cascade=CascadeType.REFRESH,mappedBy = "user")
+    @Column(name = "messagelist")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
     private List<Message> messageList;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String email,int balance,String login,String password,String regDate) {
-        this.email=email;
-        this.balance=balance;
-        this.login=login;
-        this.password=password;
-        this.regDate=regDate;
+    public User(String email, int balance, String login, String password, String regDate) {
+        this.email = email;
+        this.balance = balance;
+        this.login = login;
+        this.password = password;
+        this.regDate = regDate;
     }
 
     public void setId(long id) {
@@ -102,17 +104,17 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if(this==o) return true;
-        if(o.getClass()!=this.getClass()) return false;
+        if (this == o) return true;
+        if (o.getClass() != this.getClass()) return false;
         User u = (User) o;
-        return this.getLogin()==u.getLogin() && this.getPassword()==u.getPassword() &&
-               this.getRegDate()==u.getRegDate() && this.getEmail()==u.getEmail() &&
-               this.getBalance()==u.getBalance() && this.getMessageList()==u.getMessageList();
+        return this.getLogin() == u.getLogin() && this.getPassword() == u.getPassword() &&
+                this.getRegDate() == u.getRegDate() && this.getEmail() == u.getEmail() &&
+                this.getBalance() == u.getBalance() && this.getMessageList() == u.getMessageList();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login,password,regDate,email,balance,messageList);
+        return Objects.hash(login, password, regDate, email, balance, messageList);
 
     }
 

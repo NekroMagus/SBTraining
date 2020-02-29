@@ -10,40 +10,40 @@ import java.util.List;
 
 @Service
 public class TeapotService {
-  
-  @Autowired
-  private TeapotDao dao;
 
-  public void updateTeapot(Teapot teapot) {
-    Teapot dbTeapot = dao.findById(teapot.getId());
-    dbTeapot.setVolume(teapot.getVolume());
-    dbTeapot.setType(teapot.getType());
-    dbTeapot.setPower(teapot.getPower());
-    dbTeapot.setModel(teapot.getModel());
-    dbTeapot.setColor(teapot.getColor());
-    dao.save(dbTeapot);
-  }
+    @Autowired
+    private TeapotDao dao;
 
-  public void createTeapot(Teapot teapot) {
-    dao.save(teapot);
-  }
+    public void updateTeapot(Teapot teapot) {
+        Teapot dbTeapot = dao.findById(teapot.getId());
+        dbTeapot.setVolume(teapot.getVolume());
+        dbTeapot.setType(teapot.getType());
+        dbTeapot.setPower(teapot.getPower());
+        dbTeapot.setModel(teapot.getModel());
+        dbTeapot.setColor(teapot.getColor());
+        dao.save(dbTeapot);
+    }
 
-  public void deleteTeapot(long id) {
-    dao.deleteById(id);
-  }
+    public void createTeapot(Teapot teapot) {
+        dao.save(teapot);
+    }
 
-  public Teapot findTeapot(long id) {
-    return dao.findById(id);
-  }
+    public void deleteTeapot(long id) {
+        dao.deleteById(id);
+    }
 
-  public List<Teapot> getAllTeapots() {
-    return dao.findAll();
-  }
+    public Teapot findTeapot(long id) {
+        return dao.findById(id);
+    }
 
-  public List<Teapot> getGoodTeapots() {
-      List<Teapot> list = dao.findAll();
-      Collections.sort(list);
-      return list;
-  }
+    public List<Teapot> getAllTeapots() {
+        return dao.findAll();
+    }
+
+    public List<Teapot> getGoodTeapots() {
+        List<Teapot> list = dao.findAll();
+        Collections.sort(list);
+        return list;
+    }
 
 }

@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionRestController {
 
-   @ExceptionHandler(value = TeapotNotFoundException.class)
+    @ExceptionHandler(value = TeapotNotFoundException.class)
     public String callTeapotNotFoundException() {
         return "чайник не найден";
     }
 
-    @ExceptionHandler(value= UserNotFoundException.class)
-    public String callUserNotFoundException() {return "пользователь не найден";}
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public String callUserNotFoundException() {
+        return "пользователь не найден";
+    }
 }

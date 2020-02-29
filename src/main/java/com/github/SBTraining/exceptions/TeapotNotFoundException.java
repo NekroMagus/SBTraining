@@ -5,5 +5,4 @@ public class TeapotNotFoundException extends RuntimeException {
     public TeapotNotFoundException(String message) {
         super(message);
     }
-
 }

@@ -4,41 +4,43 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="Teapot")
+@Table(name = "Teapot")
 public class Teapot implements Comparable<Teapot> {
+
+    //TODO: you should delete column annotation if variable.name == Column.name
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
 
-    @Column(name="type")
+    @Column(name = "type")
     private String type;
 
-    @Column(name="model")
+    @Column(name = "model")
     private String model;
 
-    @Column(name="power")
+    @Column(name = "power")
     private int power;
 
-    @Column(name="color")
+    @Column(name = "color")
     private String color;
 
-    @Column(name="volume")
+    @Column(name = "volume")
     private double volume;
 
-    @Column(name="wayphotofile")
+    @Column(name = "wayphotofile")
     private String wayPhotoFile;
 
-    @Column(name="rating")
+    @Column(name = "rating")
     private byte rating;
 
-    @Column(name="listcomments")
-    @OneToMany(cascade=CascadeType.REFRESH,mappedBy="teapot")
+    @Column(name = "listcomments")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "teapot")
     private List<Comment> listComments;
 
-    public Teapot() {}
+    public Teapot() {
+    }
 
     public Teapot(String type, String model, String color, double volume, int power) {
         this.type = type;
@@ -107,7 +109,7 @@ public class Teapot implements Comparable<Teapot> {
 
     @Override
     public int compareTo(Teapot teapot) {
-        return teapot.rating-rating;
+        return teapot.rating - rating;
     }
 
     public String getWayPhotoFile() {

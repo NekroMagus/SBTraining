@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class TeapotPagesController {
 
+
+    //TODO: Why 2 classes???
     @GetMapping("/teapot/{id}")
     public String getTeapotPage(@PathVariable("id") long id) {
         return "teapotPage";

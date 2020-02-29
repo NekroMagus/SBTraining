@@ -5,30 +5,23 @@ import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.security.Principal;
-import java.util.List;
 
 
 @RestController
 public class UserRestController {
-    
+
+    //TODO: delete unused variable
     @Autowired
     private UserDao dao;
 
     @Autowired
     private UserService service;
 
+    //TODO: delete unused variable
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -39,12 +32,13 @@ public class UserRestController {
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        if(service.findUser(id)==null) {
+        if (service.findUser(id) == null) {
             throw new UserNotFoundException("пользователь не найден");
         }
         return service.findUser(id);
     }
 
+    //TODO: it's GetMapping not Post. Why you didn't return any values???
     @GetMapping("/add1")
     public void add1() {
         User user = new User();
@@ -52,14 +46,15 @@ public class UserRestController {
         user.setPassword("1111");
         service.createUser(user);
     }
+
     @PutMapping("/user")
-    public void update(@RequestBody User user)  {
+    public void update(@RequestBody User user) {
         service.update(user);
     }
 
     @DeleteMapping("/user/{id}")
     public void delete(@PathVariable("id") long id) {
-        if(service.findUser(id)==null) {
+        if (service.findUser(id) == null) {
             throw new UserNotFoundException("пользователь не найден");
         }
         service.deleteUser(id);
@@ -67,7 +62,6 @@ public class UserRestController {
 
     @GetMapping("/getCurrentUser")
     public User getCurrentUser(Principal principal) {
-       return service.findUserByLogin(principal.getName());
+        return service.findUserByLogin(principal.getName());
     }
-
 }

@@ -1,17 +1,17 @@
 package com.github.SBTraining.controller.comment;
 
-import com.github.SBTraining.dao.CommentDao;
 import com.github.SBTraining.model.Comment;
 import com.github.SBTraining.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 public class CommentRestController {
 
-   @Autowired
+    @Autowired
     private CommentService service;
+
+    //TODO: Need to add GetMapping
 
     @PostMapping("/comment")
     public void createComment(@RequestBody Comment comment) {
