@@ -28,6 +28,7 @@ public class UserService {
      }
 
      public void createUser(User user) {
+         user.setPassword(passwordEncoder.encode(user.getPassword()));
          dao.save(user);
      }
 

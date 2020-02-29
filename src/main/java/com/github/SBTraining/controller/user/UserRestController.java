@@ -50,7 +50,7 @@ public class UserRestController {
         User user = new User();
         user.setLogin("Mark");
         user.setPassword("1111");
-        dao.save(user);
+        service.createUser(user);
     }
     @PutMapping("/user")
     public void update(@RequestBody User user)  {
