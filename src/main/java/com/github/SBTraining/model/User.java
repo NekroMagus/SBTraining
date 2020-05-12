@@ -30,6 +30,9 @@ public class User {
     @Column(name = "regdate")
     private String regDate;
 
+    private String role;
+
+
     @Column(name = "messagelist")
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
     private List<Message> messageList;
@@ -92,6 +95,15 @@ public class User {
     public int getBalance() {
         return balance;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 
     public List<Message> getMessageList() {
         return messageList;

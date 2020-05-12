@@ -5,6 +5,8 @@ import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,19 @@ public class UserRestController {
         user.setPassword("1111");
         service.createUser(user);
     }
+
+    @GetMapping("/add2")
+    public User add2() {
+        return service.findUserByLogin("Mark");
+    }
+
+    @GetMapping("/checkA")
+    public String check() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
+    }
+
+
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {
