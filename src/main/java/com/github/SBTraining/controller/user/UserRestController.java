@@ -16,16 +16,8 @@ import java.security.Principal;
 @RestController
 public class UserRestController {
 
-    //TODO: delete unused variable
-    @Autowired
-    private UserDao dao;
-
     @Autowired
     private UserService service;
-
-    //TODO: delete unused variable
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
@@ -39,28 +31,6 @@ public class UserRestController {
         }
         return service.findUser(id);
     }
-
-    //TODO: it's GetMapping not Post. Why you didn't return any values???
-    @GetMapping("/add1")
-    public void add1() {
-        User user = new User();
-        user.setLogin("Mark");
-        user.setPassword("1111");
-        service.createUser(user);
-    }
-
-    @GetMapping("/add2")
-    public User add2() {
-        return service.findUserByLogin("Mark");
-    }
-
-    @GetMapping("/checkA")
-    public String check() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
-    }
-
-
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {

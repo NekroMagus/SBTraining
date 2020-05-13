@@ -6,23 +6,12 @@ import javax.persistence.*;
 @Table(name = "Comment")
 public class Comment implements Comparable<Comment> {
 
-    //TODO: you should delete column annotation if variable.name == Column.name
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name = "text")
     private String text;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "datecreate")
     private String dateCreate;
-
-    @Column(name = "estimation")
     private byte estimation;
 
     @JoinColumn(name = "id_Teapot")

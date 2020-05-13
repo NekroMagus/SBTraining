@@ -11,6 +11,10 @@ public class CommentService {
     @Autowired
     private CommentDao dao;
 
+    public Comment findById(long id) {
+        return dao.findById(id);
+    }
+
     public void updateComment(Comment comment) {
         Comment dbComment = dao.findById(comment.getId());
         dbComment.setText(comment.getText());

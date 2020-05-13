@@ -1,6 +1,8 @@
 package com.github.SBTraining.security;
 
 
+import com.github.SBTraining.security.jwt.JwtConfigurer;
+import com.github.SBTraining.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -6,17 +6,12 @@ import javax.persistence.*;
 @Table(name = "Message")
 public class Message {
 
-    //TODO: you should delete column annotation if variable.name == Column.name
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name = "text")
     private String text;
 
-    @JoinColumn(name = "id_User")
+    @JoinColumn(name="user_id")
     @ManyToOne()
     private User user;
 

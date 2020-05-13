@@ -7,35 +7,18 @@ import java.util.List;
 @Table(name = "Teapot")
 public class Teapot implements Comparable<Teapot> {
 
-    //TODO: you should delete column annotation if variable.name == Column.name
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
-    @Column(name = "type")
     private String type;
-
-    @Column(name = "model")
     private String model;
-
-    @Column(name = "power")
     private int power;
-
-    @Column(name = "color")
     private String color;
-
-    @Column(name = "volume")
     private double volume;
-
-    @Column(name = "wayphotofile")
     private String wayPhotoFile;
-
-    @Column(name = "rating")
     private byte rating;
 
-    @Column(name = "listcomments")
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "teapot")
     private List<Comment> listComments;
 

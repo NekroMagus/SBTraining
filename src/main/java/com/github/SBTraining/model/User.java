@@ -8,32 +8,17 @@ import java.util.Objects;
 @Table(name = "User")
 public class User {
 
-    //TODO: you should delete column annotation if variable.name == Column.name
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "balance")
     private int balance;
-
-    @Column(name = "login", unique = true)
     private String login;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "regdate")
     private String regDate;
-
     private String role;
 
-
-    @Column(name = "messagelist")
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
     private List<Message> messageList;
 

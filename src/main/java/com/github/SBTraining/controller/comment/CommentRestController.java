@@ -11,7 +11,10 @@ public class CommentRestController {
     @Autowired
     private CommentService service;
 
-    //TODO: Need to add GetMapping
+    @GetMapping("/comment")
+    public Comment findById(@PathVariable("id") long id) {
+        return service.findById(id);
+    }
 
     @PostMapping("/comment")
     public void createComment(@RequestBody Comment comment) {

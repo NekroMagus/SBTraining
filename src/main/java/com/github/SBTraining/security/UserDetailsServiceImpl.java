@@ -1,34 +1,22 @@
 package com.github.SBTraining.security;
 
+
 import com.github.SBTraining.model.User;
+import com.github.SBTraining.security.jwt.JwtUser;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Service
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
-    private UserService service;
+    private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = service.findUserByLogin(username);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-        Set<GrantedAuthority> set = new HashSet<>();
-        set.add(new SimpleGrantedAuthority("ADMIN"));
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), set);
+    public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
+        User jwtUser = userService.findUserByLogin(username);
+        return JwtUser.fromUserEntityToCustomUserDetails(jwtUser);
     }
-
 }
-
