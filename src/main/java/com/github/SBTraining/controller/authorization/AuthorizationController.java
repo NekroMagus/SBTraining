@@ -11,4 +11,8 @@ public class AuthorizationController {
         return "login";
     }
 
+    @GetMapping("/check")
+    public String check() {
+        return "check";
+    }
 }

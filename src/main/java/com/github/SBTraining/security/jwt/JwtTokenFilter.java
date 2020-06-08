@@ -1,10 +1,11 @@
 package com.github.SBTraining.security.jwt;
 
+import com.github.SBTraining.model.User;
+import com.github.SBTraining.security.UserDetailsServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -27,7 +28,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     private JwtTokenProvider jwtProvider;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
       jwtProvider=jwtTokenProvider;
@@ -39,7 +40,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
         if (token != null && jwtProvider.validateToken(token)) {
             String userLogin = jwtProvider.getLoginFromToken(token);
-            JwtUser customUserDetails = (JwtUser) userDetailsService.loadUserByUsername(userLogin);
+            JwtUser customUserDetails =  userDetailsServiceImpl.loadUserByUsername(userLogin);
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

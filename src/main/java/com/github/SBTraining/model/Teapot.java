@@ -19,9 +19,6 @@ public class Teapot implements Comparable<Teapot> {
     private String wayPhotoFile;
     private byte rating;
 
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "teapot")
-    private List<Comment> listComments;
-
     public Teapot() {
     }
 
@@ -103,11 +100,4 @@ public class Teapot implements Comparable<Teapot> {
         this.wayPhotoFile = wayPhotoFile;
     }
 
-    public List<Comment> getListComments() {
-        return listComments;
-    }
-
-    public void setListComments(List<Comment> listComments) {
-        this.listComments = listComments;
-    }
 }

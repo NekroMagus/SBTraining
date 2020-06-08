@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "User")
+@Table(name="Users")
 public class User {
 
 
@@ -18,9 +18,6 @@ public class User {
     private String password;
     private String regDate;
     private String role;
-
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
-    private List<Message> messageList;
 
     public User() {
     }
@@ -89,16 +86,6 @@ public class User {
         this.role = role;
     }
 
-
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,12 +93,12 @@ public class User {
         User u = (User) o;
         return this.getLogin() == u.getLogin() && this.getPassword() == u.getPassword() &&
                 this.getRegDate() == u.getRegDate() && this.getEmail() == u.getEmail() &&
-                this.getBalance() == u.getBalance() && this.getMessageList() == u.getMessageList();
+                this.getBalance() == u.getBalance();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, regDate, email, balance, messageList);
+        return Objects.hash(login, password, regDate, email, balance);
 
     }
 

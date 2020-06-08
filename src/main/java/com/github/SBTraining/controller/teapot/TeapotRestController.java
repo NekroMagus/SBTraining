@@ -32,6 +32,17 @@ public class TeapotRestController {
         return service.findTeapot(id);
     }
 
+    @GetMapping("/add1")
+    public void add1() {
+        Teapot teapot = new Teapot();
+        teapot.setModel("asrfqwgfqw");
+        service.createTeapot(teapot);
+    }
+
+    @GetMapping("/add2")
+    public Teapot add2() {
+        return service.findTeapot(1);
+    }
 
     @PostMapping("/teapot")
     public void createTeapot(@RequestBody Teapot teapot) {
