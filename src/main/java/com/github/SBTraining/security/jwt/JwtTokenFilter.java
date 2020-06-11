@@ -1,10 +1,10 @@
 package com.github.SBTraining.security.jwt;
 
-import com.github.SBTraining.model.User;
 import com.github.SBTraining.security.UserDetailsServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -16,42 +16,61 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static org.springframework.util.StringUtils.hasText;
+
 
 @Component
 @Log
 public class JwtTokenFilter extends GenericFilterBean {
 
-    public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION;
 
-    @Autowired
-    private JwtTokenProvider jwtProvider;
+    private SecurityContext securityContext;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
-
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-      jwtProvider=jwtTokenProvider;
+    public JwtTokenFilter() {
+        securityContext=SecurityContextHolder.getContext();
     }
+
+    static {
+        AUTHORIZATION = "Authorization";
+    }
+
+    @Autowired
+    private JwtProvider jwtProvider;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.info("do filter...");
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
-        if (token != null && jwtProvider.validateToken(token)) {
-            String userLogin = jwtProvider.getLoginFromToken(token);
-            JwtUser customUserDetails =  userDetailsServiceImpl.loadUserByUsername(userLogin);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        JwtUser jwtUser = null;
+        String userLogin = " ";
+        if(token!=null && jwtProvider!=null) {
+            userLogin = jwtProvider.getUsernameFromToken(token);
+            jwtUser = userDetailsService.loadUserByUsername(userLogin);
+        }
+        else if (jwtUser!=null && token != null && jwtProvider.validateToken(token,jwtUser)) {
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+            securityContext.setAuthentication(auth);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION);
-        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
+        if (bearer != null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
         return null;
+    }
+
+    public SecurityContext getSecurityContext() {
+        return securityContext;
+    }
+
+    public void setSecurityContext(SecurityContext securityContext) {
+        this.securityContext = securityContext;
     }
 }

@@ -14,12 +14,14 @@ public class JwtUser implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> grantedAuthorities;
 
-    public static JwtUser fromUserEntityToCustomUserDetails(User user) {
-        JwtUser c = new JwtUser();
-        c.login = user.getLogin();
-        c.password = user.getPassword();
-        c.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getLogin()));
-        return c;
+    public static JwtUser fromUserEntityToCustomUserDetails(User userEntity) {
+        JwtUser jwtUser = new JwtUser();
+        if(userEntity!=null) {
+            jwtUser.login = userEntity.getLogin();
+            jwtUser.password = userEntity.getPassword();
+            jwtUser.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(userEntity.getLogin()));
+        }
+        return jwtUser;
     }
 
     @Override
@@ -55,5 +57,17 @@ public class JwtUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

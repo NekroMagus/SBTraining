@@ -1,14 +1,22 @@
-$(document).ready(function () {
-   $.ajax({
-       url: '/add2',
-       type: 'GET',
-       cache: false,
-       success: (data) => {
-       let result = JSON.stringify(data, null, 4);
-       alert(result);
-},
+$('#login').submit(function (event) {
+    alert("true");
+    event.preventDefault();
+    let json =
+        JSON.stringify({
+            login:$('#username').val(),
+            password:$('#password').val()
+        });
+    $.ajax({
+        url: '/login',
+        type: "POST",
+        data: json,
+        cache: false,
+        contentType: 'application/json',
+        success: (data) => {
+        alert("helloooooooooo");
+    },
     error: (err) => {
-        alert(err);
+        alert("noooooooooooo");
     }
-   });
+});
 });

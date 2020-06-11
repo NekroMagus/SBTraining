@@ -2,22 +2,28 @@ package com.github.SBTraining.controller.user;
 
 import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.User;
+import com.github.SBTraining.security.jwt.JwtProvider;
+import com.github.SBTraining.security.jwt.JwtTokenFilter;
 import com.github.SBTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.logging.Logger;
 
 
 @RestController
 public class UserRestController {
 
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private JwtTokenFilter jwtTokenFilter;
 
     @Autowired
     private UserService service;
@@ -34,6 +40,14 @@ public class UserRestController {
         }
         return service.findUser(id);
     }
+    @GetMapping("/add1")
+    public void add1() {
+        User user = new User();
+        user.setLogin("Mark");
+        user.setPassword("1111");
+        service.createUser(user);
+    }
+
 
 
     @PutMapping("/user")
