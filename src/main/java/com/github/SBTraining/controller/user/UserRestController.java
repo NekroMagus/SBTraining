@@ -21,9 +21,8 @@ import java.util.logging.Logger;
 @RestController
 public class UserRestController {
 
-
     @Autowired
-    private JwtTokenFilter jwtTokenFilter;
+    private  JwtTokenFilter jwtTokenFilter;
 
     @Autowired
     private UserService service;
@@ -40,15 +39,6 @@ public class UserRestController {
         }
         return service.findUser(id);
     }
-    @GetMapping("/add1")
-    public void add1() {
-        User user = new User();
-        user.setLogin("Mark");
-        user.setPassword("1111");
-        service.createUser(user);
-    }
-
-
 
     @PutMapping("/user")
     public void update(@RequestBody User user) {
@@ -64,7 +54,7 @@ public class UserRestController {
     }
 
     @GetMapping("/getCurrentUser")
-    public User getCurrentUser(Principal principal) {
-        return service.findUserByLogin(principal.getName());
+    public User getCurrentUser() {
+        return service.findUserByLogin(jwtTokenFilter.getSecurityContext().getAuthentication().getName());
     }
 }

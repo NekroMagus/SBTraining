@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
-                        "/api/teapot/*", "/comment", "/comment/*", "/add1", "/registration","/add2","/check").permitAll()
+                        "/api/teapot/*", "/registration","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion","/addQuestionnaire").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer());

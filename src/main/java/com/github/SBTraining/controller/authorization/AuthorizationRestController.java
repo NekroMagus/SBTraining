@@ -52,7 +52,7 @@ public class AuthorizationRestController {
             return jwtProvider.generateToken(user.getLogin());
         }
         else {
-            return "hello";
+            return "null";
         }
     }
 

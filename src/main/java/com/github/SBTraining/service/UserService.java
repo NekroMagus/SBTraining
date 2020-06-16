@@ -29,7 +29,6 @@ public class UserService {
     }
 
     public void createUser(User user) {
-
         dao.save(user);
     }
 

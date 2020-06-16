@@ -22,17 +22,9 @@ import java.io.IOException;
 @Log
 public class JwtTokenFilter extends GenericFilterBean {
 
-    public static final String AUTHORIZATION;
+    public static final String AUTHORIZATION="Authorization";
 
-    private SecurityContext securityContext;
-
-    public JwtTokenFilter() {
-        securityContext=SecurityContextHolder.getContext();
-    }
-
-    static {
-        AUTHORIZATION = "Authorization";
-    }
+    private SecurityContext securityContext=SecurityContextHolder.getContext();
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -45,13 +37,13 @@ public class JwtTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.info("do filter...");
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
-        JwtUser jwtUser = null;
         String userLogin = " ";
+        JwtUser jwtUser = null;
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
             jwtUser = userDetailsService.loadUserByUsername(userLogin);
         }
-        else if (jwtUser!=null && token != null && jwtProvider.validateToken(token,jwtUser)) {
+        if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
             securityContext.setAuthentication(auth);
         }

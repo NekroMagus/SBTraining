@@ -10,7 +10,7 @@ public class User {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String email;
     private int balance;
@@ -21,7 +21,7 @@ public class User {
 
     public User() {
     }
-
+    
     public User(String email, int balance, String login, String password, String regDate) {
         this.email = email;
         this.balance = balance;
