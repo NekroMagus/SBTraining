@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
                         "/api/teapot/*", "/registration","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/message","/chat/messages","/client","/add/message","/app","/chat","/message/**").permitAll()
+                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer());

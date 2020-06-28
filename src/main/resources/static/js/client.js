@@ -1,31 +1,38 @@
-
-
 var stompClient = null;
+var connectFlag=false;
 
 $(document).ready(function () {
-     connect();
+   connect();
 });
-
 
 function connect() {
     var socket = new SockJS('/message');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function(frame) {
-        alert("Hello");
-        stompClient.subscribe('/chat/messages', function(response){
-            showGreeting(JSON.parse(response.body).message);
-            sendMessage();
+        connectFlag=true;
+        stompClient.subscribe('/chat/topic', function(response) {
+            show(JSON.parse(response.body).value);
         });
     });
 }
 
-
-function sendMessage() {
-    stompClient.send("/app/message", {}, JSON.stringify({
-        value: "hello",
-    }));
+function disconnect() {
+    stompClient.disconnect();
+    setConnected(false);
+    console.log("Disconnected");
 }
 
-function showGreeting(message) {
-    alert(message);
+function sendMsg() {
+    if(connectFlag) {
+        var message = document.getElementById('messageField').value;
+        stompClient.send('/app/message', {}, JSON.stringify({
+            value: message,
+        }));
+    }
+}
+
+function show(message) {
+    var element = document.createElement('div');
+    element.innerHTML=message;
+    document.body.appendChild(element);
 }
