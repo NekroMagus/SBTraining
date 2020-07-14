@@ -29,9 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
                         "/api/teapot/*", "/registration","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test").permitAll()
+                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test",
+                        "/add1").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer());

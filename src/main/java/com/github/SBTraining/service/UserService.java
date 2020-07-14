@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -17,6 +19,14 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public List<User> getAllUsers() {
+        return dao.findAll();
+    }
+
+    public void deleteAllUsers() {
+        dao.deleteAll();
+    }
 
     public void update(User user) {
         User dbUser = dao.findById(user.getId());
@@ -42,11 +52,6 @@ public class UserService {
 
     public User findUserByLogin(String login) {
         return dao.findByLogin(login);
-    }
-
-    public String getCurrentUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
     }
 
 }

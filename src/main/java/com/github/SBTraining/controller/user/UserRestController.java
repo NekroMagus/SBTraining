@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -25,7 +26,12 @@ public class UserRestController {
     private  JwtTokenFilter jwtTokenFilter;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService service;
+
+
 
     @PostMapping("/user")
     public void create(@RequestBody User user) {
@@ -55,6 +61,18 @@ public class UserRestController {
 
     @GetMapping("/getCurrentUser")
     public User getCurrentUser() {
-        return service.findUserByLogin(jwtTokenFilter.getSecurityContext().getAuthentication().getName());
+        User result = null;
+        if(jwtTokenFilter.getSecurityContext().getAuthentication()!=null)
+            result=service.findUserByLogin(jwtTokenFilter.getSecurityContext().getAuthentication().getName());
+        return result;
     }
+
+    @GetMapping("/add1")
+    public void add1() {
+        User user = new User();
+        user.setPassword(passwordEncoder.encode("Mark"));
+        user.setPassword("1111");
+        service.createUser(user);
+    }
+
 }

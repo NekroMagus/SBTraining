@@ -2,8 +2,8 @@ $('#findButton').submit(function (event) {
     event.preventDefault();
     let id = $('#findInput').val();
     $.ajax({
-        url: '/api/teapot/' + id,
-        type: 'GET',
+        url: '/check',
+        type: 'POST',
         cache: false,
         success: (data) => {
             let result = JSON.stringify(data, null, 4);

@@ -52,6 +52,7 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION);
+        logger.info(bearer);
         if (bearer != null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
@@ -62,7 +63,4 @@ public class JwtTokenFilter extends GenericFilterBean {
         return securityContext;
     }
 
-    public void setSecurityContext(SecurityContext securityContext) {
-        this.securityContext = securityContext;
-    }
 }
