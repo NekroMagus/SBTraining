@@ -23,11 +23,6 @@ import java.util.logging.Logger;
 @RestController
 public class AuthorizationRestController {
 
-    static Logger logger = Logger.getLogger(AuthorizationRestController.class.getName());
-
-   @Autowired
-   private PasswordEncoder passwordEncoder;
-
     @Autowired
     private JwtProvider jwtProvider;
 
@@ -35,31 +30,27 @@ public class AuthorizationRestController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService userService;
 
-
     @PostMapping("/registration")
-    public ResponseEntity<?> reg(@RequestBody User user) {
+    public String registration(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createUser(user);
-        String token = jwtProvider.generateToken(user.getLogin());
-        return ResponseEntity.ok("Bearer " + token);
+        return createToken(user);
     }
+
 
     @PostMapping("/login")
-    public boolean auth(@RequestBody User user) {
+    public void auth(@RequestBody User user) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(),user.getPassword()));
-        return true;
     }
 
-    @PostMapping("/check")
-    public String check(@RequestBody User user) {
-        if(userService.findUserByLogin(user.getLogin())!=null) {
-            return jwtProvider.generateToken(user.getLogin());
-        }
-        else {
-            return "null";
-        }
+    @PostMapping("/createToken")
+    public String createToken(@RequestBody User user) {
+        return jwtProvider.generateToken(user.getLogin());
     }
 
 }

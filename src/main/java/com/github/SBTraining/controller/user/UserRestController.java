@@ -70,8 +70,9 @@ public class UserRestController {
     @GetMapping("/add1")
     public void add1() {
         User user = new User();
-        user.setPassword(passwordEncoder.encode("Mark"));
-        user.setPassword("1111");
+        user.setLogin("Ale");
+        user.setPassword(passwordEncoder.encode("1111"));
+        user.setRole("ADMIN");
         service.createUser(user);
     }
 

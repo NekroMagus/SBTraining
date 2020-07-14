@@ -2,8 +2,6 @@ package com.github.SBTraining.security;
 
 
 import com.github.SBTraining.security.jwt.JwtConfigurer;
-import com.github.SBTraining.security.jwt.JwtProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,12 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
-                        "/api/teapot/*", "/registration","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test",
-                        "/add1").permitAll()
-                .anyRequest().authenticated()
+                        "/api/teapot/*","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
+                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test")
+                .hasRole("USER")
+                .antMatchers("/registration","/add1","/createToken","/getCurrentUser").permitAll()
                 .and()
                 .apply(new JwtConfigurer());
 
@@ -57,3 +55,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
+
