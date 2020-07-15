@@ -27,12 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/admin/getAllUsers").hasAuthority("ADMIN")
                 .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
                         "/api/teapot/*","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
                         "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test")
-                .hasRole("USER")
-                .antMatchers("/registration","/add1","/createToken","/getCurrentUser").permitAll()
+                .hasAuthority("USER")
+                .antMatchers("/registration","/add1","/createToken","/getCurrentUser","/roles","/role","/admin/deleteAllUsers").permitAll()
                 .and()
                 .apply(new JwtConfigurer());
 

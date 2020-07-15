@@ -1,6 +1,7 @@
 package com.github.SBTraining.controller.user;
 
 import com.github.SBTraining.exceptions.UserNotFoundException;
+import com.github.SBTraining.model.Role;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.security.jwt.JwtProvider;
 import com.github.SBTraining.security.jwt.JwtTokenFilter;
@@ -70,9 +71,12 @@ public class UserRestController {
     @GetMapping("/add1")
     public void add1() {
         User user = new User();
-        user.setLogin("Ale");
+        user.setLogin("Alee");
         user.setPassword(passwordEncoder.encode("1111"));
-        user.setRole("ADMIN");
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ADMIN");
+        user.setRole(role);
         service.createUser(user);
     }
 

@@ -1,8 +1,9 @@
 package com.github.SBTraining.model;
 
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="Users")
@@ -17,7 +18,10 @@ public class User {
     private String login;
     private String password;
     private String regDate;
-    private String role;
+
+    @ManyToOne(targetEntity = Role.class)
+    @JoinColumn(name="roles")
+    private Role role;
 
     public User() {
     }
@@ -78,11 +82,11 @@ public class User {
         return balance;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
