@@ -1,4 +1,4 @@
-package com.github.SBTraining.service;
+package com.github.SBTraining.service.user;
 
 import com.github.SBTraining.dao.UserDao;
 import com.github.SBTraining.model.User;

@@ -1,9 +1,8 @@
 package com.github.SBTraining.model;
 
-
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name="Users")
@@ -19,6 +18,7 @@ public class User {
     private String password;
     private String regDate;
 
+
     @ManyToOne(targetEntity = Role.class)
     @JoinColumn(name="roles")
     private Role role;
@@ -33,6 +33,13 @@ public class User {
         this.password = password;
         this.regDate = regDate;
     }
+
+    public User(String login,String password,String email) {
+        this.email=email;
+        this.password=password;
+        this.login=login;
+    }
+
 
     public void setId(long id) {
         this.id = id;
@@ -103,7 +110,16 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(login, password, regDate, email, balance);
-
     }
 
+    @Override
+    public String toString() {
+        return "id:" + id +
+                ",login:" + login +
+                ",password:" + password +
+                ",regdate:" + regDate +
+                ",email:" + email +
+                ",balance:" + balance +
+                ",role:" + role.getName();
+    }
 }

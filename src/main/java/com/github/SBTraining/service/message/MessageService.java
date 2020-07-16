@@ -1,4 +1,4 @@
-package com.github.SBTraining.service;
+package com.github.SBTraining.service.message;
 
 import com.github.SBTraining.dao.MessageDao;
 import com.github.SBTraining.model.Message;
@@ -11,7 +11,7 @@ public class MessageService {
     @Autowired
     private MessageDao dao;
 
-    public void addMessage(Message message) {
+    public void add(Message message) {
         dao.save(message);
     }
 
@@ -19,7 +19,7 @@ public class MessageService {
         return dao.findById(id);
     }
 
-    public void updateMessage(Message message) {
+    public void update(Message message) {
         Message dbMessage = dao.findById(message.getId());
         dbMessage.setNameUserFrom(message.getNameUserFrom());
         dbMessage.setValue(message.getValue());

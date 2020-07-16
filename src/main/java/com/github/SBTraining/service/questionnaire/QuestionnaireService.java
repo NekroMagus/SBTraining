@@ -1,4 +1,4 @@
-package com.github.SBTraining.service;
+package com.github.SBTraining.service.questionnaire;
 
 import com.github.SBTraining.dao.QuestionnaireDao;
 import com.github.SBTraining.model.Answer;
@@ -6,7 +6,7 @@ import com.github.SBTraining.model.Question;
 import com.github.SBTraining.model.Questionnaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.TreeSet;
+
 import java.util.logging.Logger;
 
 @Service
@@ -26,7 +26,6 @@ public class QuestionnaireService {
     public void addQuestion(Question question) {
         Questionnaire questionnaire = questionnaireDao.findById(question.getIdQuestionnaire());
         if (questionnaire.getTree().isEmpty()) {
-
             questionnaire.getTree().add(question);
             questionnaire.setMainQuestion(question);
             questionnaire.setCurrentQuestion(question);

@@ -19,6 +19,17 @@ public class Teapot implements Comparable<Teapot> {
     private String wayPhotoFile;
     private byte rating;
 
+    @Override
+    public String toString() {
+        return "type:" + type +
+                ",model:" + model +
+                ",power:" + power +
+                ",color:" + color +
+                ",volume:" + volume +
+                ",wayPhotoFile:" + wayPhotoFile +
+                ",rating:" + rating;
+    }
+
     public Teapot() {
     }
 
@@ -87,11 +98,6 @@ public class Teapot implements Comparable<Teapot> {
         this.rating = rating;
     }
 
-    @Override
-    public int compareTo(Teapot teapot) {
-        return teapot.rating - rating;
-    }
-
     public String getWayPhotoFile() {
         return wayPhotoFile;
     }
@@ -99,5 +105,11 @@ public class Teapot implements Comparable<Teapot> {
     public void setWayPhotoFile(String wayPhotoFile) {
         this.wayPhotoFile = wayPhotoFile;
     }
+
+    @Override
+    public int compareTo(Teapot teapot) {
+        return teapot.rating - rating;
+    }
+
 
 }

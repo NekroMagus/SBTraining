@@ -1,4 +1,4 @@
-package com.github.SBTraining.service;
+package com.github.SBTraining.service.teapot;
 
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.model.Teapot;

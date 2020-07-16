@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -35,14 +36,15 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("do filter...");
-        String token = getTokenFromRequest((HttpServletRequest) servletRequest);
+
+        String token = getTokenFromRequest((HttpServletRequest) servletRequest,servletResponse);
         String userLogin = " ";
         JwtUser jwtUser = null;
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
             jwtUser = userDetailsService.loadUserByUsername(userLogin);
         }
+
         if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
             securityContext.setAuthentication(auth);
@@ -50,11 +52,14 @@ public class JwtTokenFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String getTokenFromRequest(HttpServletRequest request) {
+    private String getTokenFromRequest(HttpServletRequest request,ServletResponse response) throws IOException {
         String bearer = request.getHeader(AUTHORIZATION);
         logger.info(bearer);
         if (bearer != null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
+        }
+        else {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "token not found, make request with token");
         }
         return null;
     }

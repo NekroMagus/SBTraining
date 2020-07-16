@@ -11,6 +11,7 @@ public class Question implements Comparable<Question>, Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private long id;
+   private String question;
    private String answer;
 
    @OneToOne(targetEntity = Question.class)
@@ -29,7 +30,7 @@ public class Question implements Comparable<Question>, Serializable {
 
    public Question() {}
 
-    public Question(String answer, Question questionLeft, Question questionRight, Question superQuestion) {
+    public Question(String answer,String question, Question questionLeft, Question questionRight, Question superQuestion) {
         this.answer = answer;
         this.question_Left = questionLeft;
         this.question_Right = questionRight;
@@ -87,5 +88,19 @@ public class Question implements Comparable<Question>, Serializable {
 
     public void setIdQuestionnaire(long idQuestionnaire) {
         this.idQuestionnaire = idQuestionnaire;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    @Override
+    public String toString() {
+        return "question:" + question +
+                ",answer:" + answer;
     }
 }

@@ -27,15 +27,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/registration","/add1","/createToken","/getCurrentUser","/roles","/role","/admin/deleteAllUsers").not().fullyAuthenticated()
                 .antMatchers("/admin/getAllUsers").hasAuthority("ADMIN")
-                .antMatchers("/teapot", "/teapot/*", "/crudTeapot", "/static/**",
+                .antMatchers("/crudTeapot", "/static/**",
                         "/api/teapot/*","/check","/getCurrentUser","/addQuestion","/quest","/checkQuestion",
                         "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test")
                 .hasAuthority("USER")
-                .antMatchers("/registration","/add1","/createToken","/getCurrentUser","/roles","/role","/admin/deleteAllUsers").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer());
-
     }
 
     @Bean

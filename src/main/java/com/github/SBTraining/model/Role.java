@@ -1,6 +1,7 @@
 package com.github.SBTraining.model;
 
 
+
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
@@ -56,5 +57,10 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getName();
+    }
+
+    @Override
+    public String toString() {
+        return "id:" + id + ",name:" + name;
     }
 }

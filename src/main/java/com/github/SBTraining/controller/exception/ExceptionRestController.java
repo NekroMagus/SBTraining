@@ -10,11 +10,11 @@ public class ExceptionRestController {
 
     @ExceptionHandler(value = TeapotNotFoundException.class)
     public String callTeapotNotFoundException() {
-        return "чайник не найден";
+        return "teapot not found";
     }
 
     @ExceptionHandler(value = UserNotFoundException.class)
     public String callUserNotFoundException() {
-        return "пользователь не найден";
+        return "user not found";
     }
 }

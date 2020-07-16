@@ -3,25 +3,19 @@ package com.github.SBTraining.controller.user;
 import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.Role;
 import com.github.SBTraining.model.User;
-import com.github.SBTraining.security.jwt.JwtProvider;
 import com.github.SBTraining.security.jwt.JwtTokenFilter;
-import com.github.SBTraining.service.UserService;
+import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
-import java.util.List;
+
 import java.util.logging.Logger;
 
 
 @RestController
 public class UserRestController {
+
+    static Logger log = Logger.getLogger(UserRestController.class.getName());
 
     @Autowired
     private  JwtTokenFilter jwtTokenFilter;
@@ -32,11 +26,11 @@ public class UserRestController {
     @Autowired
     private UserService service;
 
-
-
     @PostMapping("/user")
-    public void create(@RequestBody User user) {
+    public String create(@RequestBody User user) {
         service.createUser(user);
+        log.info("user created,user:" + user.toString());
+        return "user created";
     }
 
     @GetMapping("/user/{id}")
@@ -53,11 +47,13 @@ public class UserRestController {
     }
 
     @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable("id") long id) {
+    public String delete(@PathVariable("id") long id) {
         if (service.findUser(id) == null) {
             throw new UserNotFoundException("пользователь не найден");
         }
         service.deleteUser(id);
+        log.info("user deleted,user:" + service.findUser(id).toString());
+        return "user deleted";
     }
 
     @GetMapping("/getCurrentUser")
@@ -68,7 +64,7 @@ public class UserRestController {
         return result;
     }
 
-    @GetMapping("/add1")
+    @PostMapping("/add1")
     public void add1() {
         User user = new User();
         user.setLogin("Alee");

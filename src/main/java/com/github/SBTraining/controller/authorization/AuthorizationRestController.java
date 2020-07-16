@@ -1,27 +1,26 @@
 package com.github.SBTraining.controller.authorization;
 
 
+import com.github.SBTraining.controller.admin.AdminRestController;
+import com.github.SBTraining.dto.UserDto;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.security.jwt.JwtProvider;
-import com.github.SBTraining.security.jwt.JwtTokenFilter;
-import com.github.SBTraining.service.UserService;
-import jdk.nashorn.internal.objects.annotations.Function;
-import lombok.extern.java.Log;
+import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.logging.Logger;
 
+
 @RestController
 public class AuthorizationRestController {
+
+    static Logger log = Logger.getLogger(AuthorizationRestController.class.getName());
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -36,16 +35,18 @@ public class AuthorizationRestController {
     private UserService userService;
 
     @PostMapping("/registration")
-    public String registration(@RequestBody User user) {
+    public String registration(@RequestBody UserDto user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.createUser(user);
-        return createToken(user);
+        userService.createUser(new User(user.getLogin(),user.getPassword(),user.getEmail()));
+        log.info("user added , user:" + user.toString());
+        return createToken(new User(user.getLogin(),user.getPassword(),user.getEmail()));
     }
 
 
     @PostMapping("/login")
-    public void auth(@RequestBody User user) {
+    public void auth(@RequestBody UserDto user) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(),user.getPassword()));
+        log.info("user authenticated , user:" + user.toString());
     }
 
     @PostMapping("/createToken")
