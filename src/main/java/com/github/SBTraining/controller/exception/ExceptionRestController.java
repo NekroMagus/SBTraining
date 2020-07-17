@@ -5,6 +5,10 @@ import com.github.SBTraining.exceptions.UserNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * @author Egor Odintsov
+ */
+
 @RestControllerAdvice
 public class ExceptionRestController {
 

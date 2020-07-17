@@ -1,12 +1,14 @@
 package com.github.SBTraining.controller.authorization;
 
 
-import com.github.SBTraining.controller.admin.AdminRestController;
+
 import com.github.SBTraining.dto.UserDto;
 import com.github.SBTraining.model.User;
 import com.github.SBTraining.security.jwt.JwtProvider;
 import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.logging.Logger;
 
+/**
+ * @author Egor Odintsov
+ */
 
 @RestController
 public class AuthorizationRestController {
@@ -34,24 +39,61 @@ public class AuthorizationRestController {
     @Autowired
     private UserService userService;
 
+    /**
+     * register user
+     * @param user - userDto object which will register
+     * @return token
+     */
+
     @PostMapping("/registration")
-    public String registration(@RequestBody UserDto user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.createUser(new User(user.getLogin(),user.getPassword(),user.getEmail()));
-        log.info("user added , user:" + user.toString());
-        return createToken(new User(user.getLogin(),user.getPassword(),user.getEmail()));
+    public ResponseEntity registration(@RequestBody UserDto user) {
+        if(user!=null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.createUser(new User(user));
+            log.info("user added , user:" + user.toString());
+            return new ResponseEntity(createToken(user.getLogin()),HttpStatus.OK);
+        }
+        else {
+            log.severe("user equals null");
+            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+        }
     }
 
+    /**
+     * authenticate user
+     * @param user - userDto object which will authenticate
+     * @return  responseEntity which contains message and http status
+     */
 
     @PostMapping("/login")
-    public void auth(@RequestBody UserDto user) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(),user.getPassword()));
-        log.info("user authenticated , user:" + user.toString());
+    public ResponseEntity auth(@RequestBody UserDto user) {
+        if(user!=null) {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+            log.info("user authenticated , user:" + user.toString());
+            return new ResponseEntity("user authenticated", HttpStatus.OK);
+        }
+        else {
+            log.severe("user equals null");
+            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+        }
     }
 
+    /**
+     * method create token
+     * @param login - login of user which will use  to create token
+     * @return
+     */
+
     @PostMapping("/createToken")
-    public String createToken(@RequestBody User user) {
-        return jwtProvider.generateToken(user.getLogin());
+    public ResponseEntity createToken(@RequestBody String login) {
+        if(login!=null) {
+            log.info("token created");
+            return new ResponseEntity(jwtProvider.generateToken(login),HttpStatus.NO_CONTENT);
+        }
+        else {
+            log.severe("login equals null");
+            return new ResponseEntity("login equals null",HttpStatus.NO_CONTENT);
+        }
     }
 
 }

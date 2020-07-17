@@ -1,8 +1,7 @@
 package com.github.SBTraining.controller.admin;
 
-import com.github.SBTraining.model.Role;
+
 import com.github.SBTraining.model.User;
-import com.github.SBTraining.service.admin.AdminService;
 import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,16 +36,21 @@ public class AdminRestController {
             return new ResponseEntity(listUsers, HttpStatus.OK);
         }
         else {
-            log.info("list of users is empty");
+            log.severe("list of users is empty");
             return new ResponseEntity("list of users is empty",HttpStatus.NO_CONTENT);
         }
     }
 
+    /**
+     * Method which delete all Users
+     * @return responseEntity object which contains message and http status
+     */
+
     @DeleteMapping("/admin/deleteAllUsers")
-    public String deleteAllUsers() {
+    public ResponseEntity deleteAllUsers() {
         userService.deleteAllUsers();
         log.info("All users deleted");
-        return "all users deleted";
+        return new ResponseEntity("All users deleted" , HttpStatus.OK);
     }
 
 }

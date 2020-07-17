@@ -58,15 +58,14 @@ public class JwtTokenFilter extends GenericFilterBean {
         if (bearer != null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
-        else {
+       /* else {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
-       // else {
-         //   ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "token not found, make request with token");
-        //}
+        */
+
         return null;
     }
 

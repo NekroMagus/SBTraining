@@ -1,5 +1,7 @@
 package com.github.SBTraining.model;
 
+import com.github.SBTraining.dto.UserDto;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,6 +19,7 @@ public class User {
     private String login;
     private String password;
     private String regDate;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public User() {
@@ -30,10 +33,10 @@ public class User {
         this.regDate = regDate;
     }
 
-    public User(String login,String password,String email) {
-        this.email=email;
-        this.password=password;
-        this.login=login;
+    public User(UserDto user) {
+        this.email=user.getEmail();
+        this.password=user.getPassword();
+        this.login=user.getLogin();
     }
 
 
