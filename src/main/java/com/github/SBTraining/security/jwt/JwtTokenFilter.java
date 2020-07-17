@@ -3,6 +3,7 @@ package com.github.SBTraining.security.jwt;
 import com.github.SBTraining.security.UserDetailsServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +45,6 @@ public class JwtTokenFilter extends GenericFilterBean {
             userLogin = jwtProvider.getUsernameFromToken(token);
             jwtUser = userDetailsService.loadUserByUsername(userLogin);
         }
-
         if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
             securityContext.setAuthentication(auth);
@@ -59,8 +59,14 @@ public class JwtTokenFilter extends GenericFilterBean {
             return bearer.substring(7);
         }
         else {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "token not found, make request with token");
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
+            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
+
+       // else {
+         //   ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "token not found, make request with token");
+        //}
         return null;
     }
 

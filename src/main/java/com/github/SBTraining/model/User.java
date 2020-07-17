@@ -17,10 +17,6 @@ public class User {
     private String login;
     private String password;
     private String regDate;
-
-
-    @ManyToOne(targetEntity = Role.class)
-    @JoinColumn(name="roles")
     private Role role;
 
     public User() {
@@ -120,6 +116,6 @@ public class User {
                 ",regdate:" + regDate +
                 ",email:" + email +
                 ",balance:" + balance +
-                ",role:" + role.getName();
+                ",role:" + role;
     }
 }

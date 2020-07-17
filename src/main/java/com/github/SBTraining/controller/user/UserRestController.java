@@ -6,10 +6,16 @@ import com.github.SBTraining.model.User;
 import com.github.SBTraining.security.jwt.JwtTokenFilter;
 import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.logging.Logger;
+
+/**
+ * @author Egor Odintsov
+ */
 
 
 @RestController
@@ -26,42 +32,80 @@ public class UserRestController {
     @Autowired
     private UserService service;
 
+
+    /**
+     * @param user-user object that will save in data base
+     * @return responseEntity object which contains message and http status
+     */
+
     @PostMapping("/user")
-    public String create(@RequestBody User user) {
-        service.createUser(user);
-        log.info("user created,user:" + user.toString());
-        return "user created";
+    public ResponseEntity create(@RequestBody User user) {
+        if(user!=null) {
+            service.createUser(user);
+            log.info("user created,user:" + user.toString());
+            return new ResponseEntity("user created", HttpStatus.OK);
+        }
+        else {
+            log.info("user equals null");
+            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+        }
     }
+
+    /**
+     * @param id - user id
+     * @return user object
+     */
 
     @GetMapping("/user/{id}")
     public User find(@PathVariable("id") long id) {
-        if (service.findUser(id) == null) {
-            throw new UserNotFoundException("пользователь не найден");
+        User user = service.findUser(id);
+        if (user == null) {
+            throw new UserNotFoundException("user not found");
         }
-        return service.findUser(id);
+        return user;
     }
+
+    /**
+     * @param user - user that will update
+     * @return responseEntity object which contains message and http status
+     */
 
     @PutMapping("/user")
-    public void update(@RequestBody User user) {
+    public ResponseEntity update(@RequestBody User user) {
         service.update(user);
+        return new ResponseEntity("user updated",HttpStatus.OK);
     }
+
+    /**
+     *
+     * @param id - user id that will deleted
+     * @return  responseEntity object which contains message and http status
+     */
 
     @DeleteMapping("/user/{id}")
-    public String delete(@PathVariable("id") long id) {
-        if (service.findUser(id) == null) {
-            throw new UserNotFoundException("пользователь не найден");
+    public ResponseEntity delete(@PathVariable("id") long id) {
+        User user = service.findUser(id);
+        if (user == null) {
+            throw new UserNotFoundException("user not found");
         }
         service.deleteUser(id);
-        log.info("user deleted,user:" + service.findUser(id).toString());
-        return "user deleted";
+        log.info("user deleted,user:" + user.toString());
+        return new ResponseEntity("user deleted",HttpStatus.OK);
     }
 
+    /**
+     * @return responseEntity object which contains current authenticated user and http status
+     */
+
     @GetMapping("/getCurrentUser")
-    public User getCurrentUser() {
-        User result = null;
-        if(jwtTokenFilter.getSecurityContext().getAuthentication()!=null)
-            result=service.findUserByLogin(jwtTokenFilter.getSecurityContext().getAuthentication().getName());
-        return result;
+    public ResponseEntity getCurrentUser() {
+        Authentication authentication = jwtTokenFilter.getSecurityContext().getAuthentication();
+        if(authentication!=null)
+            return new ResponseEntity(service.findUserByLogin(authentication.getName()),HttpStatus.OK);
+        else {
+            log.severe("user not authorized");
+            return new ResponseEntity("user not authorized", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping("/add1")
@@ -69,10 +113,7 @@ public class UserRestController {
         User user = new User();
         user.setLogin("Alee");
         user.setPassword(passwordEncoder.encode("1111"));
-        Role role = new Role();
-        role.setId(1L);
-        role.setName("ADMIN");
-        user.setRole(role);
+        user.setRole(Role.ADMIN);
         service.createUser(user);
     }
 
