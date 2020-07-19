@@ -9,7 +9,6 @@ public class Teapot implements Comparable<Teapot> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long id;
     private String type;
     private String model;

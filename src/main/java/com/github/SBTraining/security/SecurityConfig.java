@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -28,14 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration","/add1","/createToken","/getCurrentUser","/admin/deleteAllUsers").permitAll()
-                .antMatchers("/admin/getAllUsers","/").hasRole("ADMIN")
+                .antMatchers("/admin/getAllUsers","/").hasAuthority("ADMIN")
                 .antMatchers("/crudTeapot", "/static/**",
                         "/api/teapot/*","/check","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test")
-                .hasAuthority("USER")
+                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test","/api/teapotPag")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer());
+                .apply(new JwtConfigurer()).and().exceptionHandling().authenticationEntryPoint(new AuthEntryPoint());
     }
 
     @Bean

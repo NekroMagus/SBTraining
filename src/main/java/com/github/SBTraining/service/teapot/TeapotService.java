@@ -2,7 +2,12 @@ package com.github.SBTraining.service.teapot;
 
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.model.Teapot;
+import javafx.scene.control.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -38,6 +43,11 @@ public class TeapotService {
 
     public List<Teapot> getAllTeapots() {
         return dao.findAll();
+    }
+
+    public Page<Teapot> getAllTeapotsWithPagination() {
+        Pageable pageable = PageRequest.of(0,5,Sort.by("id"));
+        return dao.findAll(pageable);
     }
 
     public List<Teapot> getGoodTeapots() {

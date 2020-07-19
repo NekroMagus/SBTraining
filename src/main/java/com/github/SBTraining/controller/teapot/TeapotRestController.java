@@ -5,6 +5,7 @@ import com.github.SBTraining.exceptions.TeapotNotFoundException;
 import com.github.SBTraining.model.Teapot;
 import com.github.SBTraining.service.teapot.TeapotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,15 +19,26 @@ public class TeapotRestController {
     @Autowired
     private TeapotService service;
 
+    /**
+     * return all teapots
+     * @return list of all teapots
+     */
 
     @GetMapping("/api/teapot")
-    public List<Teapot> findAllTeapot() {
+    public List<Teapot> findAllTeapots() {
         if (service.getAllTeapots().isEmpty()) {
             throw new TeapotNotFoundException("list teapots is empty");
         }
         return service.getAllTeapots();
     }
 
+    @GetMapping("/api/teapotPag")
+    public Page<Teapot> findAllTeapotsWithPagination() {
+        if (service.getAllTeapots().isEmpty()) {
+            throw new TeapotNotFoundException("list teapots is empty");
+        }
+        return service.getAllTeapotsWithPagination();
+    }
 
     @GetMapping("/api/teapot/{id}")
     public Teapot findByIdTeapot(@PathVariable("id") long id) {

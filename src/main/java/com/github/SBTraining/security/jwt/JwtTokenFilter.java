@@ -1,5 +1,6 @@
 package com.github.SBTraining.security.jwt;
 
+import com.github.SBTraining.security.AuthEntryPoint;
 import com.github.SBTraining.security.UserDetailsServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -38,12 +38,16 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        String token = getTokenFromRequest((HttpServletRequest) servletRequest,servletResponse);
+        String token = null;
+        token = getTokenFromRequest((HttpServletRequest) servletRequest,servletResponse);
         String userLogin = " ";
         JwtUser jwtUser = null;
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
             jwtUser = userDetailsService.loadUserByUsername(userLogin);
+        }
+        else {
+
         }
         if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());

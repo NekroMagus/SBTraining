@@ -55,7 +55,7 @@ public class AuthorizationRestController {
         }
         else {
             log.severe("user equals null");
-            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+            return new ResponseEntity("user equals null",HttpStatus.OK);
         }
     }
 
@@ -74,25 +74,25 @@ public class AuthorizationRestController {
         }
         else {
             log.severe("user equals null");
-            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+            return new ResponseEntity("user equals null",HttpStatus.OK);
         }
     }
 
     /**
      * method create token
      * @param login - login of user which will use  to create token
-     * @return
+     * @return responseEntity object , which contains token and http status
      */
 
     @PostMapping("/createToken")
     public ResponseEntity createToken(@RequestBody String login) {
         if(login!=null) {
             log.info("token created");
-            return new ResponseEntity(jwtProvider.generateToken(login),HttpStatus.NO_CONTENT);
+            return new ResponseEntity(jwtProvider.generateToken(login),HttpStatus.OK);
         }
         else {
             log.severe("login equals null");
-            return new ResponseEntity("login equals null",HttpStatus.NO_CONTENT);
+            return new ResponseEntity("login equals null",HttpStatus.OK);
         }
     }
 
