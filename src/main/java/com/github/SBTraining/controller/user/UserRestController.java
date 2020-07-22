@@ -94,6 +94,7 @@ public class UserRestController {
     }
 
     /**
+     * return current authenticated user
      * @return responseEntity object which contains current authenticated user and http status
      */
 
@@ -101,7 +102,7 @@ public class UserRestController {
     public ResponseEntity getCurrentUser() {
         Authentication authentication = jwtTokenFilter.getSecurityContext().getAuthentication();
         if(authentication!=null)
-            return new ResponseEntity(service.findUserByLogin(authentication.getName()),HttpStatus.OK);
+           return new ResponseEntity(service.findUserByLogin(authentication.getName()),HttpStatus.OK);
         else {
             log.severe("user not authorized");
             return new ResponseEntity("user not authorized", HttpStatus.UNAUTHORIZED);

@@ -32,7 +32,7 @@ public class AdminRestController {
     public ResponseEntity getAllUsers() {
         List<User> listUsers = userService.getAllUsers();
         if(!listUsers.isEmpty()) {
-            return new ResponseEntity(listUsers, HttpStatus.OK);
+            return new ResponseEntity(listUsers,HttpStatus.OK);
         }
         else {
             log.severe("list of users is empty");
@@ -45,7 +45,7 @@ public class AdminRestController {
      * @return responseEntity object which contains message and http status
      */
 
-    @DeleteMapping("/admin/deleteAllUsers")
+    @DeleteMapping("/deleteAllUsers")
     public ResponseEntity deleteAllUsers() {
         userService.deleteAllUsers();
         log.info("All users deleted");

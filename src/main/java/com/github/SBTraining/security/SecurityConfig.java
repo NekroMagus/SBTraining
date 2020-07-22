@@ -1,6 +1,7 @@
 package com.github.SBTraining.security;
 
 
+import com.github.SBTraining.security.entry_point.AuthEntryPoint;
 import com.github.SBTraining.security.jwt.JwtConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,15 +29,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/registration","/add1","/createToken","/getCurrentUser","/admin/deleteAllUsers").permitAll()
-                .antMatchers("/admin/getAllUsers","/").hasAuthority("ADMIN")
+                .antMatchers("/registration","/add1","/createToken","/getCurrentUser").permitAll()
+                .antMatchers("/admin/**","/").hasAuthority("ADMIN")
                 .antMatchers("/crudTeapot", "/static/**",
                         "/api/teapot/*","/check","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test","/api/teapotPag")
-                .permitAll()
+                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test","/api/teapotPag",
+                        "/getAllFiles","/showPhoto","/file/*")
+                .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer()).and().exceptionHandling().authenticationEntryPoint(new AuthEntryPoint());
+                .apply(new JwtConfigurer())
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new AuthEntryPoint());
     }
 
     @Bean

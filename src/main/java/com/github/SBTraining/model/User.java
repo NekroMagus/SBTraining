@@ -1,8 +1,8 @@
 package com.github.SBTraining.model;
 
 import com.github.SBTraining.dto.UserDto;
-
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -21,6 +21,9 @@ public class User {
     private String regDate;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(targetEntity = UserFile.class)
+    @JoinColumn(name = "files")
+    private List<UserFile> listFiles;
 
     public User() {
     }
@@ -94,6 +97,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<UserFile> getListFiles() {
+        return listFiles;
+    }
+
+    public void setListFiles(List<UserFile> listFiles) {
+        this.listFiles = listFiles;
     }
 
     @Override

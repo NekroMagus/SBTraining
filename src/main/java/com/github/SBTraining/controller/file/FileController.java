@@ -10,4 +10,9 @@ public class FileController {
     public String upload() {
         return "uploadFiles";
     }
+
+    @GetMapping("/showPhoto")
+    public String showPhoto() {
+        return "file";
+    }
 }

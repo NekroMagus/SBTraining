@@ -1,4 +1,4 @@
-package com.github.SBTraining.security;
+package com.github.SBTraining.security.entry_point;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
