@@ -11,6 +11,8 @@ public class AuthEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        // Checking request contains token
+        if(request.getHeader("Authorization")==null)
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"You need token");
     }
 }

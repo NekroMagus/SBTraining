@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/registration","/add1","/createToken","/getCurrentUser").permitAll()
-                .antMatchers("/admin/**","/").hasAuthority("ADMIN")
+                .antMatchers("/registration","/add1","/createToken").permitAll()
+                .antMatchers("/admin/getAllUsers","/").hasAuthority("ADMIN")
                 .antMatchers("/crudTeapot", "/static/**",
                         "/api/teapot/*","/check","/addQuestion","/quest","/checkQuestion",
                         "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test","/api/teapotPag",
@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(new AuthEntryPoint());
+                .apply(new JwtConfigurer());
+                //.and()
+               // .exceptionHandling().authenticationEntryPoint(new AuthEntryPoint());
     }
 
     @Bean

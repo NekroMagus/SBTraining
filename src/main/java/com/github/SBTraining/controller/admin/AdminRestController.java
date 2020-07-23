@@ -29,15 +29,10 @@ public class AdminRestController {
      */
 
     @GetMapping("/admin/getAllUsers")
-    public ResponseEntity getAllUsers() {
+    public List<User> getAllUsers() {
         List<User> listUsers = userService.getAllUsers();
-        if(!listUsers.isEmpty()) {
-            return new ResponseEntity(listUsers,HttpStatus.OK);
-        }
-        else {
-            log.severe("list of users is empty");
-            return new ResponseEntity("list of users is empty",HttpStatus.OK);
-        }
+        log.info(listUsers + "");
+        return listUsers;
     }
 
     /**

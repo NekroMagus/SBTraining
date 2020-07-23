@@ -99,14 +99,10 @@ public class UserRestController {
      */
 
     @GetMapping("/getCurrentUser")
-    public ResponseEntity getCurrentUser() {
+    public User getCurrentUser() {
         Authentication authentication = jwtTokenFilter.getSecurityContext().getAuthentication();
-        if(authentication!=null)
-           return new ResponseEntity(service.findUserByLogin(authentication.getName()),HttpStatus.OK);
-        else {
-            log.severe("user not authorized");
-            return new ResponseEntity("user not authorized", HttpStatus.UNAUTHORIZED);
-        }
+        log.info(authentication.getName());
+        return service.findUserByLogin(authentication.getName());
     }
 
     @PostMapping("/add1")

@@ -1,9 +1,11 @@
 package com.github.SBTraining.security.jwt;
 
 import com.github.SBTraining.security.UserDetailsServiceImpl;
+import com.github.SBTraining.security.entry_point.AuthEntryPoint;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -35,17 +38,13 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         String token = null;
-        token = getTokenFromRequest((HttpServletRequest) servletRequest,servletResponse);
+        token = getTokenFromRequest((HttpServletRequest) servletRequest);
         String userLogin = " ";
         JwtUser jwtUser = null;
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
             jwtUser = userDetailsService.loadUserByUsername(userLogin);
-        }
-        else {
-
         }
         if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
@@ -54,20 +53,12 @@ public class JwtTokenFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String getTokenFromRequest(HttpServletRequest request,ServletResponse response) throws IOException {
+    private String getTokenFromRequest(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION);
         logger.info(bearer);
-        if (bearer != null && bearer.startsWith("Bearer ")) {
+        if (bearer!=null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
-       /* else {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
-            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        }
-
-        */
-
         return null;
     }
 
