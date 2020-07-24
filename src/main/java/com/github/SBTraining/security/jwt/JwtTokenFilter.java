@@ -27,8 +27,6 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION="Authorization";
 
-    private SecurityContext securityContext=SecurityContextHolder.getContext();
-
     @Autowired
     private JwtProvider jwtProvider;
 
@@ -40,15 +38,15 @@ public class JwtTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = null;
         token = getTokenFromRequest((HttpServletRequest) servletRequest);
-        String userLogin = " ";
+        String userLogin = null;
         JwtUser jwtUser = null;
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
-            jwtUser = userDetailsService.loadUserByUsername(userLogin);
         }
-        if (token != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
+        if (userLogin != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
+            jwtUser = userDetailsService.loadUserByUsername(userLogin);
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-            securityContext.setAuthentication(auth);
+            SecurityContextHolder.getContext().setAuthentication(auth);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -62,8 +60,5 @@ public class JwtTokenFilter extends GenericFilterBean {
         return null;
     }
 
-    public SecurityContext getSecurityContext() {
-        return securityContext;
-    }
 
 }

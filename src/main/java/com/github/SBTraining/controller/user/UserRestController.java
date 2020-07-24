@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
@@ -22,9 +23,6 @@ import java.util.logging.Logger;
 public class UserRestController {
 
     static Logger log = Logger.getLogger(UserRestController.class.getName());
-
-    @Autowired
-    private  JwtTokenFilter jwtTokenFilter;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -100,9 +98,8 @@ public class UserRestController {
 
     @GetMapping("/getCurrentUser")
     public User getCurrentUser() {
-        Authentication authentication = jwtTokenFilter.getSecurityContext().getAuthentication();
-        log.info(authentication.getName());
-        return service.findUserByLogin(authentication.getName());
+        log.info(SecurityContextHolder.getContext().getAuthentication().getName());
+        return service.findUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
     @PostMapping("/add1")
