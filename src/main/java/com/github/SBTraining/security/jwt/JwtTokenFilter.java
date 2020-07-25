@@ -36,17 +36,18 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String token = null;
-        token = getTokenFromRequest((HttpServletRequest) servletRequest);
         String userLogin = null;
-        JwtUser jwtUser = null;
+        String token = getTokenFromRequest((HttpServletRequest) servletRequest);
         if(token!=null && jwtProvider!=null) {
             userLogin = jwtProvider.getUsernameFromToken(token);
         }
-        if (userLogin != null && jwtUser!=null && jwtProvider.validateToken(token,jwtUser)) {
-            jwtUser = userDetailsService.loadUserByUsername(userLogin);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        if (userLogin != null) {
+            JwtUser jwtUser = userDetailsService.loadUserByUsername(userLogin);
+            if(jwtProvider.validateToken(token,jwtUser)) {
+                logger.info(true);
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

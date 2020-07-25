@@ -98,7 +98,6 @@ public class UserRestController {
 
     @GetMapping("/getCurrentUser")
     public User getCurrentUser() {
-        log.info(SecurityContextHolder.getContext().getAuthentication().getName());
         return service.findUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
