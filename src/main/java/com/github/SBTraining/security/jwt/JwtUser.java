@@ -18,7 +18,7 @@ public class JwtUser implements UserDetails {
 
     public static JwtUser fromUserEntityToCustomUserDetails(User userEntity) {
         JwtUser jwtUser = new JwtUser();
-        if(userEntity!=null) {
+        if (userEntity != null) {
             jwtUser.login = userEntity.getLogin();
             jwtUser.password = userEntity.getPassword();
             jwtUser.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole().name()));

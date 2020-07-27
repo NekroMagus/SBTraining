@@ -19,6 +19,7 @@ public class ChatController {
 
     /**
      * send messages to topic
+     *
      * @param message - message which will send to topic
      * @return message which will kept in topic
      * @throws Exception

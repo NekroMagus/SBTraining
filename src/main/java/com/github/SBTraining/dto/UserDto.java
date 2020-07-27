@@ -13,9 +13,9 @@ public class UserDto {
 
     @JsonCreator
     public UserDto(User user) {
-        this.login=user.getLogin();
-        this.password=user.getPassword();
-        this.email=user.getEmail();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
     }
 
     public String getLogin() {
@@ -46,7 +46,7 @@ public class UserDto {
     public String toString() {
         return
                 "login:" + login +
-                ",password:" + password +
-                ",email:" + email;
+                        ",password:" + password +
+                        ",email:" + email;
     }
 }

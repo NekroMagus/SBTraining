@@ -69,36 +69,35 @@ public class QuestionnaireService {
         }
     }
 
-    public Question findQuestionById(long id,long idQuestionnaire) {
+    public Question findQuestionById(long id, long idQuestionnaire) {
         Question result = new Question();
         Questionnaire questionnaire = questionnaireDao.findById(idQuestionnaire);
-        if(id==questionnaire.getCurrentQuestion().getId()) result=questionnaire.getCurrentQuestion();
+        if (id == questionnaire.getCurrentQuestion().getId()) result = questionnaire.getCurrentQuestion();
 
-            else if (id < questionnaire.getCurrentQuestion().getId()) {
+        else if (id < questionnaire.getCurrentQuestion().getId()) {
 
-                if (questionnaire.getCurrentQuestion().getQuestionLeft()!=null && id == questionnaire.getCurrentQuestion().getQuestionLeft().getId()) {
+            if (questionnaire.getCurrentQuestion().getQuestionLeft() != null && id == questionnaire.getCurrentQuestion().getQuestionLeft().getId()) {
 
-                    result = questionnaire.getCurrentQuestion().getQuestionLeft();
+                result = questionnaire.getCurrentQuestion().getQuestionLeft();
 
-                } else if (questionnaire.getCurrentQuestion().getQuestionLeft()!=null && id < questionnaire.getCurrentQuestion().getQuestionLeft().getId()) {
+            } else if (questionnaire.getCurrentQuestion().getQuestionLeft() != null && id < questionnaire.getCurrentQuestion().getQuestionLeft().getId()) {
 
-                    questionnaire.setCurrentQuestion_two(questionnaire.getCurrentQuestion());
-                    questionnaire.setCurrentQuestion(questionnaire.getCurrentQuestion_two().getQuestionLeft());
-                    findQuestionById(id,idQuestionnaire);
+                questionnaire.setCurrentQuestion_two(questionnaire.getCurrentQuestion());
+                questionnaire.setCurrentQuestion(questionnaire.getCurrentQuestion_two().getQuestionLeft());
+                findQuestionById(id, idQuestionnaire);
 
-                }
             }
-            else if (id > questionnaire.getCurrentQuestion().getId()) {
+        } else if (id > questionnaire.getCurrentQuestion().getId()) {
 
-            if (questionnaire.getCurrentQuestion().getQuestionRight()!=null && id == questionnaire.getCurrentQuestion().getQuestionRight().getId()) {
+            if (questionnaire.getCurrentQuestion().getQuestionRight() != null && id == questionnaire.getCurrentQuestion().getQuestionRight().getId()) {
 
                 result = questionnaire.getCurrentQuestion().getQuestionRight();
 
-            } else if (questionnaire.getCurrentQuestion().getQuestionRight()!=null && id > questionnaire.getCurrentQuestion().getQuestionRight().getId()) {
+            } else if (questionnaire.getCurrentQuestion().getQuestionRight() != null && id > questionnaire.getCurrentQuestion().getQuestionRight().getId()) {
 
                 questionnaire.setCurrentQuestion_two(questionnaire.getCurrentQuestion());
                 questionnaire.setCurrentQuestion(questionnaire.getCurrentQuestion_two().getQuestionRight());
-                findQuestionById(id,idQuestionnaire);
+                findQuestionById(id, idQuestionnaire);
 
             }
         }
@@ -107,8 +106,9 @@ public class QuestionnaireService {
     }
 
     public boolean checkQuestion(Answer answer) {
-        if(findQuestionById(answer.getId(),answer.getIdQuestionnaire()).getAnswer()!=null &&
-                findQuestionById(answer.getId(),answer.getIdQuestionnaire()).getAnswer().equals(answer.getAnswer())) return true;
+        if (findQuestionById(answer.getId(), answer.getIdQuestionnaire()).getAnswer() != null &&
+                findQuestionById(answer.getId(), answer.getIdQuestionnaire()).getAnswer().equals(answer.getAnswer()))
+            return true;
         else return false;
     }
 

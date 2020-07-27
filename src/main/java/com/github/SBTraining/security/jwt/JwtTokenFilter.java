@@ -15,12 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
 @Component
 @Log
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    public static final String AUTHORIZATION="Authorization";
+    public static final String AUTHORIZATION = "Authorization";
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -38,7 +37,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         if (userLogin != null) {
             JwtUser jwtUser = userDetailsService.loadUserByUsername(userLogin);
-            if(jwtProvider.validateToken(token,jwtUser)) {
+            if (jwtProvider.validateToken(token, jwtUser)) {
                 logger.info(true);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -50,7 +49,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION);
         logger.info(bearer);
-        if (bearer!=null && bearer.startsWith("Bearer ")) {
+        if (bearer != null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
         return null;

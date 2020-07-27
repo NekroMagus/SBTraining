@@ -25,6 +25,7 @@ public class QuestionnaireRestController {
 
     /**
      * check answer is correct
+     *
      * @param answer - answer object from user
      * @return boolean result , true if answer is correct , false if not
      */
@@ -36,6 +37,7 @@ public class QuestionnaireRestController {
 
     /**
      * add Question
+     *
      * @param question - question object which will add to list
      * @return responseEntity which contains message and http status
      */
@@ -49,15 +51,16 @@ public class QuestionnaireRestController {
 
     /**
      * add questionnaire
+     *
      * @param questionnaire - questionnaire object which will add to data base
-     * @return  responseEntity which contains message and http status
+     * @return responseEntity which contains message and http status
      */
 
     @GetMapping("/addQuestionnaire")
     public ResponseEntity addQuestionnaire(@RequestBody Questionnaire questionnaire) {
         service.addQuestionnaire(questionnaire);
         log.info("questionnaire added");
-        return new ResponseEntity("questionnaire added",HttpStatus.OK);
+        return new ResponseEntity("questionnaire added", HttpStatus.OK);
     }
 
 }

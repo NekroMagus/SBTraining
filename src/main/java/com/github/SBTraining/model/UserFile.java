@@ -4,11 +4,11 @@ package com.github.SBTraining.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="files")
+@Table(name = "files")
 public class UserFile {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nameFile;
     private String type;
@@ -19,10 +19,10 @@ public class UserFile {
     public UserFile() {
     }
 
-    public UserFile(String nameFile,String type,byte[] content) {
-        this.nameFile=nameFile;
-        this.type=type;
-        this.content=content;
+    public UserFile(String nameFile, String type, byte[] content) {
+        this.nameFile = nameFile;
+        this.type = type;
+        this.content = content;
     }
 
     public long getId() {

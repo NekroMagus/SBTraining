@@ -26,18 +26,18 @@ public class FileRestController {
 
     /**
      * method which upload files on server
+     *
      * @param file - file which will upload on server
      * @return responseEntity object which contains message and http status
      */
 
     @PostMapping("/upload")
     public ResponseEntity uploadFile(@RequestParam MultipartFile file) throws IOException {
-        if(file!=null && !file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             service.uploadToDataBase(file);
             log.info("file " + file.getOriginalFilename() + " saved");
             return new ResponseEntity("file saved", HttpStatus.OK);
-        }
-        else {
+        } else {
             log.info("file is not exists or is empty");
             return new ResponseEntity("file didnt saved", HttpStatus.OK);
         }

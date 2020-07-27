@@ -5,32 +5,33 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="Question")
+@Table(name = "Question")
 public class Question implements Comparable<Question>, Serializable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private long id;
-   private String question;
-   private String answer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String question;
+    private String answer;
 
-   @OneToOne(targetEntity = Question.class)
-   @JoinColumn(name="question_right")
-   private Question question_Right;
+    @OneToOne(targetEntity = Question.class)
+    @JoinColumn(name = "question_right")
+    private Question question_Right;
 
-   @OneToOne(targetEntity = Question.class)
-   @JoinColumn(name="question_left")
-   private Question question_Left;
+    @OneToOne(targetEntity = Question.class)
+    @JoinColumn(name = "question_left")
+    private Question question_Left;
 
-   @OneToOne(targetEntity = Question.class)
-   @JoinColumn(name="question_super")
-   private Question superQuestion;
+    @OneToOne(targetEntity = Question.class)
+    @JoinColumn(name = "question_super")
+    private Question superQuestion;
 
-   private long idQuestionnaire;
+    private long idQuestionnaire;
 
-   public Question() {}
+    public Question() {
+    }
 
-    public Question(String answer,String question, Question questionLeft, Question questionRight, Question superQuestion) {
+    public Question(String answer, String question, Question questionLeft, Question questionRight, Question superQuestion) {
         this.answer = answer;
         this.question_Left = questionLeft;
         this.question_Right = questionRight;
@@ -39,7 +40,7 @@ public class Question implements Comparable<Question>, Serializable {
 
     @Override
     public int compareTo(Question o) {
-        return (int) (getId()-o.getId());
+        return (int) (getId() - o.getId());
     }
 
     public long getId() {

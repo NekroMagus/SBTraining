@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 @Data
 public class User {
 
@@ -39,9 +39,9 @@ public class User {
     }
 
     public User(UserDto user) {
-        this.email=user.getEmail();
-        this.password=user.getPassword();
-        this.login=user.getLogin();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.login = user.getLogin();
     }
 
 

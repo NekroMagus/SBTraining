@@ -3,16 +3,17 @@ package com.github.SBTraining.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="messages")
+@Table(name = "messages")
 public class Message {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private long id;
-   private String nameUserFrom;
-   private String value;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String nameUserFrom;
+    private String value;
 
-   public Message() {}
+    public Message() {
+    }
 
     public Message(String nameUserFrom, String value) {
         this.nameUserFrom = nameUserFrom;

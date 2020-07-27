@@ -45,7 +45,7 @@ public class TeapotService {
     }
 
     public Page<Teapot> getAllTeapotsWithPagination() {
-        Pageable pageable = PageRequest.of(0,5,Sort.by("id"));
+        Pageable pageable = PageRequest.of(0, 5, Sort.by("id"));
         return dao.findAll(pageable);
     }
 

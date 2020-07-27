@@ -3,15 +3,14 @@ package com.github.SBTraining.controller.user;
 import com.github.SBTraining.exceptions.UserNotFoundException;
 import com.github.SBTraining.model.Role;
 import com.github.SBTraining.model.User;
-import com.github.SBTraining.security.jwt.JwtTokenFilter;
 import com.github.SBTraining.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.logging.Logger;
 
 /**
@@ -38,14 +37,13 @@ public class UserRestController {
 
     @PostMapping("/user")
     public ResponseEntity create(@RequestBody User user) {
-        if(user!=null) {
+        if (user != null) {
             service.createUser(user);
             log.info("user created,user:" + user.toString());
             return new ResponseEntity("user created", HttpStatus.OK);
-        }
-        else {
+        } else {
             log.info("user equals null");
-            return new ResponseEntity("user equals null",HttpStatus.NO_CONTENT);
+            return new ResponseEntity("user equals null", HttpStatus.NO_CONTENT);
         }
     }
 
@@ -71,13 +69,12 @@ public class UserRestController {
     @PutMapping("/user")
     public ResponseEntity update(@RequestBody User user) {
         service.update(user);
-        return new ResponseEntity("user updated",HttpStatus.OK);
+        return new ResponseEntity("user updated", HttpStatus.OK);
     }
 
     /**
-     *
      * @param id - user id that will deleted
-     * @return  responseEntity object which contains message and http status
+     * @return responseEntity object which contains message and http status
      */
 
     @DeleteMapping("/user/{id}")
@@ -88,11 +85,12 @@ public class UserRestController {
         }
         service.deleteUser(id);
         log.info("user deleted,user:" + user.toString());
-        return new ResponseEntity("user deleted",HttpStatus.OK);
+        return new ResponseEntity("user deleted", HttpStatus.OK);
     }
 
     /**
      * return current authenticated user
+     *
      * @return responseEntity object which contains current authenticated user and http status
      */
 

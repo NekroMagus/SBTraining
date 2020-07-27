@@ -21,6 +21,7 @@ public class TeapotRestController {
 
     /**
      * return all teapots
+     *
      * @return list of all teapots
      */
 

@@ -36,12 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/registration","/add1","/createToken").permitAll()
-                .antMatchers("/admin/getAllUsers","/").hasAuthority("ADMIN")
+                .antMatchers("/registration", "/add1", "/createToken").permitAll()
+                .antMatchers("/admin/getAllUsers", "/").hasAuthority("ADMIN")
                 .antMatchers("/crudTeapot", "/static/**",
-                        "/api/teapot/*","/check","/addQuestion","/quest","/checkQuestion",
-                        "/addQuestionnaire","/chat/topic","/client","/message/**","/app/message","/chat","/upload","/test","/api/teapotPag",
-                        "/getAllFiles","/showPhoto","/file/*")
+                        "/api/teapot/*", "/check", "/addQuestion", "/quest", "/checkQuestion",
+                        "/addQuestionnaire", "/chat/topic", "/client", "/message/**", "/app/message", "/chat", "/upload", "/test", "/api/teapotPag",
+                        "/getAllFiles", "/showPhoto", "/file/*")
                 .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
