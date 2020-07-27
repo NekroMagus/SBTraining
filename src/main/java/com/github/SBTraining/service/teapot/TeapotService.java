@@ -2,7 +2,6 @@ package com.github.SBTraining.service.teapot;
 
 import com.github.SBTraining.dao.TeapotDao;
 import com.github.SBTraining.model.Teapot;
-import javafx.scene.control.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

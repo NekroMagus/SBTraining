@@ -2,12 +2,12 @@ package com.github.SBTraining.security;
 
 
 import com.github.SBTraining.security.entry_point.AuthEntryPoint;
-import com.github.SBTraining.security.jwt.JwtConfigurer;
 import com.github.SBTraining.security.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
+
+    @Autowired
+    private AuthEntryPoint entryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,11 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(new AuthEntryPoint())
-                .and()
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);;
+                .exceptionHandling().authenticationEntryPoint(entryPoint);
+
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(getPasswordEncoder());
     }
 
     @Bean
@@ -54,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();

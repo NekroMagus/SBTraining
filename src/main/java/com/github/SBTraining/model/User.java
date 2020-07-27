@@ -1,13 +1,15 @@
 package com.github.SBTraining.model;
 
 import com.github.SBTraining.dto.UserDto;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 
 @Entity
 @Table(name="Users")
+@Data
 public class User {
 
 
@@ -27,7 +29,7 @@ public class User {
 
     public User() {
     }
-    
+
     public User(String email, int balance, String login, String password, String regDate) {
         this.email = email;
         this.balance = balance;
@@ -107,29 +109,4 @@ public class User {
         this.listFiles = listFiles;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o.getClass() != this.getClass()) return false;
-        User u = (User) o;
-        return this.getLogin() == u.getLogin() && this.getPassword() == u.getPassword() &&
-                this.getRegDate() == u.getRegDate() && this.getEmail() == u.getEmail() &&
-                this.getBalance() == u.getBalance();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(login, password, regDate, email, balance);
-    }
-
-    @Override
-    public String toString() {
-        return "id:" + id +
-                ",login:" + login +
-                ",password:" + password +
-                ",regdate:" + regDate +
-                ",email:" + email +
-                ",balance:" + balance +
-                ",role:" + role;
-    }
 }

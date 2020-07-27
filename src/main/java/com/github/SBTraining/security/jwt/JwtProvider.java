@@ -7,9 +7,10 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
-import java.time.ZoneId;
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -23,11 +24,17 @@ public class JwtProvider {
     @Value("$(jwt.secret)")
     private String jwtSecret;
 
-    public String generateToken(String login) {
-        Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateToken(claims, userDetails.getUsername());
+    }
+
+    private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setSubject(login)
-                .setExpiration(date)
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

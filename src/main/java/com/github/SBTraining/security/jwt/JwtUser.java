@@ -1,6 +1,7 @@
 package com.github.SBTraining.security.jwt;
 
 import com.github.SBTraining.model.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Data
 public class JwtUser implements UserDetails {
 
     private String login;
@@ -19,7 +21,7 @@ public class JwtUser implements UserDetails {
         if(userEntity!=null) {
             jwtUser.login = userEntity.getLogin();
             jwtUser.password = userEntity.getPassword();
-            jwtUser.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(userEntity.getLogin()));
+            jwtUser.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole().name()));
         }
         return jwtUser;
     }
